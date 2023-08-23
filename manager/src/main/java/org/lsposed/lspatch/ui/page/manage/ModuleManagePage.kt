@@ -2,6 +2,7 @@ package org.lsposed.lspatch.ui.page.manage
 
 import android.content.Intent
 import android.net.Uri
+import org.lsposed.lspatch.R
 import android.provider.Settings
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -22,7 +23,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.lsposed.lspatch.R
 import org.lsposed.lspatch.ui.component.AnywhereDropdown
 import org.lsposed.lspatch.ui.component.AppItem
 import org.lsposed.lspatch.ui.viewmodel.manage.ModuleManageViewModel

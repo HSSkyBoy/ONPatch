@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.lsposed.lspatch.Patcher
 import org.lsposed.lspatch.share.PatchConfig
-import org.lsposed.lspatch.util.LSPPackageManager
 import org.lsposed.lspatch.util.LSPPackageManager.AppInfo
 import org.lsposed.patch.util.Logger
 
@@ -107,7 +106,7 @@ class NewPatchViewModel : ViewModel() {
             logger.e(t.stackTraceToString())
             PatchState.ERROR
         } finally {
-            LSPPackageManager.cleanTmpApkDir()
+
         }
     }
 }

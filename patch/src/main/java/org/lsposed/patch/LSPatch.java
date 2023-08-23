@@ -46,7 +46,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 public class LSPatch {
 
@@ -154,7 +153,7 @@ public class LSPatch {
             outputDir.mkdirs();
 
             File outputFile = new File(outputDir, String.format(
-                    Locale.getDefault(), "%s-%d-lspatched.apk",
+                    Locale.getDefault(), "%s-%d-opatched.apk",
                     FilenameUtils.getBaseName(apkFileName),
                     LSPConfig.instance.VERSION_CODE)
             ).getAbsoluteFile();
@@ -259,12 +258,19 @@ public class LSPatch {
             }
 
             if (!useManager) {
+                logger.i("Embedding modules...");
+                embedModules(dstZFile);
+            }
+
+            {
+
                 logger.i("Adding loader dex...");
                 try (var is = getClass().getClassLoader().getResourceAsStream(LOADER_DEX_ASSET_PATH)) {
                     dstZFile.add(LOADER_DEX_ASSET_PATH, is);
                 } catch (Throwable e) {
                     throw new PatchError("Error when adding assets", e);
                 }
+
 
                 logger.i("Adding native lib...");
                 // copy so and dex files into the unzipped apk
@@ -279,9 +285,6 @@ public class LSPatch {
                     }
                     logger.d("added " + entryName);
                 }
-
-                logger.i("Embedding modules...");
-                embedModules(dstZFile);
             }
 
             // create zip link

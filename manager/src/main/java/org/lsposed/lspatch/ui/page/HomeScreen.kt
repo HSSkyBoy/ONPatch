@@ -3,7 +3,6 @@ package org.lsposed.lspatch.ui.page
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,8 +13,6 @@ import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,13 +25,13 @@ import androidx.compose.ui.unit.dp
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import kotlinx.coroutines.launch
+import org.lsposed.lspatch.JUtils
 import org.lsposed.lspatch.R
+import org.lsposed.lspatch.lspApp
 import org.lsposed.lspatch.share.LSPConfig
 import org.lsposed.lspatch.ui.component.CenterTopBar
 import org.lsposed.lspatch.ui.util.HtmlText
 import org.lsposed.lspatch.ui.util.LocalSnackbarHost
-import org.lsposed.lspatch.util.ShizukuApi
-import rikka.shizuku.Shizuku
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RootNavGraph(start = true)
@@ -59,25 +56,13 @@ fun HomeScreen() {
     }
 }
 
-private val listener: (Int, Int) -> Unit = { _, grantResult ->
-    ShizukuApi.isPermissionGranted = grantResult == PackageManager.PERMISSION_GRANTED
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ShizukuCard() {
-    LaunchedEffect(Unit) {
-        Shizuku.addRequestPermissionResultListener(listener)
-    }
-    DisposableEffect(Unit) {
-        onDispose {
-            Shizuku.removeRequestPermissionResultListener(listener)
-        }
-    }
 
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(containerColor = run {
-            if (ShizukuApi.isPermissionGranted) MaterialTheme.colorScheme.secondaryContainer
+            if (JUtils.isGenshinInstalled(lspApp)) MaterialTheme.colorScheme.secondaryContainer
             else MaterialTheme.colorScheme.errorContainer
         })
     ) {
@@ -85,14 +70,12 @@ private fun ShizukuCard() {
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    if (ShizukuApi.isBinderAvailable && !ShizukuApi.isPermissionGranted) {
-                        Shizuku.requestPermission(114514)
-                    }
+
                 }
                 .padding(24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (ShizukuApi.isPermissionGranted) {
+            if (JUtils.isGenshinInstalled(lspApp)) {
                 Icon(Icons.Outlined.CheckCircle, stringResource(R.string.shizuku_available))
                 Column(Modifier.padding(start = 20.dp)) {
                     Text(
@@ -102,7 +85,7 @@ private fun ShizukuCard() {
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = "API " + Shizuku.getVersion(),
+                        text = "版本 " + JUtils.getGenshinVersion(lspApp),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }

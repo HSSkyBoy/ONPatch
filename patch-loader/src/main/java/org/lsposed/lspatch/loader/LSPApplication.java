@@ -50,7 +50,7 @@ import hidden.HiddenApiBridge;
 @SuppressWarnings("unused")
 public class LSPApplication {
 
-    private static final String TAG = "LSPatch";
+    private static final String TAG = "OPatch";
     private static final int FIRST_APP_ZYGOTE_ISOLATED_UID = 90000;
     private static final int PER_USER_RANGE = 100000;
 
@@ -101,6 +101,7 @@ public class LSPApplication {
 
     private static Context createLoadedApkWithContext() {
         try {
+            var timeStart = System.currentTimeMillis();
             var mBoundApplication = XposedHelpers.getObjectField(activityThread, "mBoundApplication");
 
             stubLoadedApk = (LoadedApk) XposedHelpers.getObjectField(mBoundApplication, "info");
@@ -118,7 +119,7 @@ public class LSPApplication {
             Log.i(TAG, "Use manager: " + config.useManager);
             Log.i(TAG, "Signature bypass level: " + config.sigBypassLevel);
 
-            Path originPath = Paths.get(appInfo.dataDir, "cache/lspatch/origin/");
+            Path originPath = Paths.get(appInfo.dataDir, "cache/opatch/origin/");
             Path cacheApkPath;
             try (ZipFile sourceFile = new ZipFile(appInfo.sourceDir)) {
                 cacheApkPath = originPath.resolve(sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH).getCrc() + ".apk");
@@ -173,6 +174,7 @@ public class LSPApplication {
                     appInfo.appComponentFactory = null;
                 }
             }
+            Log.i(TAG,"createLoadedApkWithContext cost: " + (System.currentTimeMillis() - timeStart) + "ms");
             return context;
         } catch (Throwable e) {
             Log.e(TAG, "createLoadedApk", e);

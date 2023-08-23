@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInstaller
-import android.content.pm.PackageInstallerHidden.SessionParamsHidden
 import android.content.pm.PackageManager
-import android.content.pm.PackageManagerHidden
 import android.net.Uri
 import android.os.Parcelable
 import android.util.Log
@@ -15,17 +13,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
-import dev.rikka.tools.refine.Refine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.appiconloader.AppIconLoader
+import org.lsposed.lspatch.JUtils
 import org.lsposed.lspatch.config.ConfigManager
-import org.lsposed.lspatch.config.Configs
 import org.lsposed.lspatch.lspApp
-import org.lsposed.lspatch.share.Constants
 import java.io.File
 import java.io.IOException
 import java.text.Collator
@@ -85,39 +80,7 @@ object LSPPackageManager {
         var message: String? = null
         withContext(Dispatchers.IO) {
             runCatching {
-                val params = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL)
-                var flags = Refine.unsafeCast<SessionParamsHidden>(params).installFlags
-                flags = flags or PackageManagerHidden.INSTALL_ALLOW_TEST or PackageManagerHidden.INSTALL_REPLACE_EXISTING
-                Refine.unsafeCast<SessionParamsHidden>(params).installFlags = flags
-                ShizukuApi.createPackageInstallerSession(params).use { session ->
-                    val uri = Configs.storageDirectory?.toUri() ?: throw IOException("Uri is null")
-                    val root = DocumentFile.fromTreeUri(lspApp, uri) ?: throw IOException("DocumentFile is null")
-                    root.listFiles().forEach { file ->
-                        if (file.name?.endsWith(Constants.PATCH_FILE_SUFFIX) != true) return@forEach
-                        Log.d(TAG, "Add ${file.name}")
-                        val input = lspApp.contentResolver.openInputStream(file.uri)
-                            ?: throw IOException("Cannot open input stream")
-                        input.use {
-                            session.openWrite(file.name!!, 0, input.available().toLong()).use { output ->
-                                input.copyTo(output)
-                                session.fsync(output)
-                            }
-                        }
-                    }
-                    var result: Intent? = null
-                    suspendCoroutine { cont ->
-                        val adapter = IntentSenderHelper.IIntentSenderAdaptor { intent ->
-                            result = intent
-                            cont.resume(Unit)
-                        }
-                        val intentSender = IntentSenderHelper.newIntentSender(adapter)
-                        session.commit(intentSender)
-                    }
-                    result?.let {
-                        status = it.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE)
-                        message = it.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE)
-                    } ?: throw IOException("Intent is null")
-                }
+                JUtils.installApkByPackageManager(lspApp, lspApp.targetApkPath)
             }.onFailure {
                 status = PackageInstaller.STATUS_FAILURE
                 message = it.message + "\n" + it.stackTraceToString()
@@ -138,7 +101,7 @@ object LSPPackageManager {
                         cont.resume(Unit)
                     }
                     val intentSender = IntentSenderHelper.newIntentSender(adapter)
-                    ShizukuApi.uninstallPackage(packageName, intentSender)
+                    JUtils.uninstallApkByPackageName(lspApp, packageName)
                 }
                 result?.let {
                     status = it.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE)

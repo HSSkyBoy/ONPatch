@@ -11,7 +11,6 @@ import org.lsposed.hiddenapibypass.HiddenApiBypass
 import org.lsposed.lspatch.manager.AppBroadcastReceiver
 import org.lsposed.lspatch.manager.ModuleService
 import org.lsposed.lspatch.util.LSPPackageManager
-import org.lsposed.lspatch.util.ShizukuApi
 import java.io.File
 
 lateinit var lspApp: LSPApplication
@@ -20,6 +19,7 @@ class LSPApplication : Application() {
 
     lateinit var prefs: SharedPreferences
     lateinit var tmpApkDir: File
+    lateinit var targetApkPath: File
 
     val globalScope = CoroutineScope(Dispatchers.Default)
 
@@ -30,7 +30,6 @@ class LSPApplication : Application() {
         filesDir.mkdir()
         tmpApkDir = cacheDir.resolve("apk").also { it.mkdir() }
         prefs = lspApp.getSharedPreferences("settings", Context.MODE_PRIVATE)
-        ShizukuApi.init()
         AppBroadcastReceiver.register(this)
         startService(Intent(this, ModuleService::class.java))
         globalScope.launch { LSPPackageManager.fetchAppList() }

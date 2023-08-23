@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
-import android.os.RemoteException;
 import android.util.Log;
 
 import org.lsposed.lspatch.loader.util.FileUtils;

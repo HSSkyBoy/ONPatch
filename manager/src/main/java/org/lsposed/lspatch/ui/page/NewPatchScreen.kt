@@ -38,6 +38,7 @@ import com.ramcosta.composedestinations.result.NavResult
 import com.ramcosta.composedestinations.result.ResultRecipient
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.lsposed.lspatch.JUtils
 import org.lsposed.lspatch.R
 import org.lsposed.lspatch.lspApp
 import org.lsposed.lspatch.ui.component.AnywhereDropdown
@@ -54,7 +55,6 @@ import org.lsposed.lspatch.ui.viewmodel.NewPatchViewModel.PatchState
 import org.lsposed.lspatch.ui.viewmodel.NewPatchViewModel.ViewAction
 import org.lsposed.lspatch.util.LSPPackageManager
 import org.lsposed.lspatch.util.LSPPackageManager.AppInfo
-import org.lsposed.lspatch.util.ShizukuApi
 
 private const val TAG = "NewPatchPage"
 
@@ -320,7 +320,6 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
             when (viewModel.patchState) {
                 PatchState.PATCHING -> BackHandler {}
                 PatchState.FINISHED -> {
-                    val shizukuUnavailable = stringResource(R.string.shizuku_unavailable)
                     val installSuccessfully = stringResource(R.string.patch_install_successfully)
                     val installFailed = stringResource(R.string.patch_install_failed)
                     val copyError = stringResource(R.string.copy_error)
@@ -350,13 +349,7 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
                         Button(
                             modifier = Modifier.weight(1f),
                             onClick = {
-                                if (!ShizukuApi.isPermissionGranted) {
-                                    scope.launch {
-                                        snackbarHost.showSnackbar(shizukuUnavailable)
-                                    }
-                                } else {
-                                    installing = true
-                                }
+                                installing = true
                             },
                             content = { Text(stringResource(R.string.install)) }
                         )
@@ -389,15 +382,14 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
 @Composable
 private fun InstallDialog(patchApp: AppInfo, onFinish: (Int, String?) -> Unit) {
     val scope = rememberCoroutineScope()
-    var uninstallFirst by remember { mutableStateOf(ShizukuApi.isPackageInstalledWithoutPatch(patchApp.app.packageName)) }
+    var uninstallFirst by remember { mutableStateOf(JUtils.checkIsApkFixedByLSP(lspApp,patchApp.app.packageName)) }
     var installing by remember { mutableStateOf(0) }
     suspend fun doInstall() {
         Log.i(TAG, "Installing app ${patchApp.app.packageName}")
         installing = 1
-        val (status, message) = LSPPackageManager.install()
+        JUtils.installApkByPackageManager(lspApp, lspApp.targetApkPath)
+
         installing = 0
-        Log.i(TAG, "Installation end: $status, $message")
-        onFinish(status, message)
     }
 
     LaunchedEffect(Unit) {
@@ -416,14 +408,8 @@ private fun InstallDialog(patchApp: AppInfo, onFinish: (Int, String?) -> Unit) {
                             Log.i(TAG, "Uninstalling app ${patchApp.app.packageName}")
                             uninstallFirst = false
                             installing = 2
-                            val (status, message) = LSPPackageManager.uninstall(patchApp.app.packageName)
+                            JUtils.uninstallApkByPackageName(lspApp,patchApp.app.packageName)
                             installing = 0
-                            Log.i(TAG, "Uninstallation end: $status, $message")
-                            if (status == PackageInstaller.STATUS_SUCCESS) {
-                                doInstall()
-                            } else {
-                                onFinish(status, message)
-                            }
                         }
                     },
                     content = { Text(stringResource(android.R.string.ok)) }

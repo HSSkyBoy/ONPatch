@@ -124,8 +124,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-swiperefresh:$accompanistVersion")
     implementation(libs.material)
     implementation(libs.gson)
-    implementation("dev.rikka.shizuku:api:13.1.2")
-    implementation("dev.rikka.shizuku:provider:13.1.2")
     implementation("dev.rikka.tools.refine:runtime:4.3.0")
     implementation("io.github.raamcosta.compose-destinations:core:$composeDestinationsVersion")
     implementation(libs.appiconloader)
