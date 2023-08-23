@@ -72,7 +72,7 @@ public class SigBypass {
     private static void hookPackageParser(Context context) {
         XposedBridge.hookAllMethods(PackageParser.class, "generatePackageInfo", new XC_MethodHook() {
             @Override
-            protected void afterHookedMethod(MethodHookParam param) {
+            public void afterHookedMethod(MethodHookParam param) {
                 var packageInfo = (PackageInfo) param.getResult();
                 if (packageInfo == null) return;
                 replaceSignature(context, packageInfo);
