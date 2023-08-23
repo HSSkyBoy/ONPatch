@@ -22,7 +22,7 @@ import java.util.zip.ZipFile;
 
 public class LocalApplicationService extends ILSPApplicationService.Stub {
 
-    private static final String TAG = "LSPatch";
+    private static final String TAG = "OPatch";
 
     private final List<Module> modules = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class LocalApplicationService extends ILSPApplicationService.Stub {
         try {
             for (var name : context.getAssets().list("lspatch/modules")) {
                 String packageName = name.substring(0, name.length() - 4);
-                String modulePath = context.getCacheDir() + "/lspatch/" + packageName + "/";
+                String modulePath = context.getCacheDir() + "/opatch/" + packageName + "/";
                 String cacheApkPath;
                 try (ZipFile sourceFile = new ZipFile(context.getPackageResourcePath())) {
                     cacheApkPath = modulePath + sourceFile.getEntry(Constants.EMBEDDED_MODULES_ASSET_PATH + name).getCrc() + ".apk";

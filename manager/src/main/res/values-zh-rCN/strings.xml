@@ -23,14 +23,14 @@
     <string name="home_system_abi">系统架构</string>
     <string name="home_info_copied">已复制到剪贴板</string>
     <string name="home_support">支持</string>
-    <string name="home_description">OPatch 是一款免费的基于 LSPosed 核心的免 Root Xposed 框架。</string>
+    <string name="home_description">OPatch 是一款免费的基于 LSPosed 核心的免 Root 原神注入 框架。</string>
     <string name="home_view_source_code"><![CDATA[查看源代码 %1$s<br/>加入我们的 %2$s 频道]]></string>
     <!-- Manage Screen -->
     <string name="screen_manage">管理</string>
     <string name="manage_loading">加载中</string>
-    <string name="manage_no_apps">尚无已修补的应用</string>
+    <string name="manage_no_apps">尚无注入原神的应用</string>
     <string name="manage_rolling">滚动</string>
-    <string name="manage_update_loader">更新加载器</string>
+    <string name="manage_update_loader">更新原神加载器</string>
     <string name="manage_update_loader_successfully">更新成功</string>
     <string name="manage_update_loader_failed">更新失败</string>
     <string name="manage_module_scope">模块作用域</string>

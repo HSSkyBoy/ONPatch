@@ -6,6 +6,7 @@ import static org.lsposed.lspatch.share.Constants.ORIGINAL_APK_ASSET_PATH;
 import android.app.ActivityThread;
 import android.app.LoadedApk;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.res.CompatibilityInfo;
 import android.os.Build;
@@ -15,12 +16,16 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.lsposed.lspatch.loader.util.FileUtils;
 import org.lsposed.lspatch.loader.util.XLog;
+import org.lsposed.lspatch.service.FixedLocalApplicationService;
 import org.lsposed.lspatch.service.LocalApplicationService;
 import org.lsposed.lspatch.service.RemoteApplicationService;
 import org.lsposed.lspatch.share.PatchConfig;
 import org.lsposed.lspd.core.Startup;
+import org.lsposed.lspd.models.Module;
 import org.lsposed.lspd.service.ILSPApplicationService;
 
 import java.io.BufferedReader;
@@ -37,6 +42,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.zip.ZipFile;
@@ -79,7 +85,24 @@ public class LSPApplication {
         Log.d(TAG, "Initialize service client");
         ILSPApplicationService service;
         if (config.useManager) {
-            service = new RemoteApplicationService(context);
+            try {
+                service = new RemoteApplicationService(context);
+                List<Module> m = service.getLegacyModulesList();
+                JSONArray moduleArr = new JSONArray();
+                for (Module module : m) {
+                    JSONObject moduleObj = new JSONObject();
+                    moduleObj.put("path",module.apkPath);
+                    moduleObj.put("packageName",module.packageName);
+                    moduleArr.put(moduleObj);
+                }
+                SharedPreferences shared = context.getSharedPreferences("opatch", Context.MODE_PRIVATE);
+                shared.edit().putString("modules",moduleArr.toString()).commit();
+                Log.e(TAG, "Success update module scope");
+            }catch (Exception e){
+                Log.e(TAG, "Failed to connect to manager, fallback to fixed local service");
+                service = new FixedLocalApplicationService(context);
+            }
+
         } else {
             service = new LocalApplicationService(context);
         }

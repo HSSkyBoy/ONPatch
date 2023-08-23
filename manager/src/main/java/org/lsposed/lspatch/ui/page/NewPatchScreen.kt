@@ -383,13 +383,9 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
 private fun InstallDialog(patchApp: AppInfo, onFinish: (Int, String?) -> Unit) {
     val scope = rememberCoroutineScope()
     var uninstallFirst by remember { mutableStateOf(JUtils.checkIsApkFixedByLSP(lspApp,patchApp.app.packageName)) }
-    var installing by remember { mutableStateOf(0) }
-    suspend fun doInstall() {
+    fun doInstall() {
         Log.i(TAG, "Installing app ${patchApp.app.packageName}")
-        installing = 1
         JUtils.installApkByPackageManager(lspApp, lspApp.targetApkPath)
-
-        installing = 0
     }
 
     LaunchedEffect(Unit) {
@@ -406,10 +402,8 @@ private fun InstallDialog(patchApp: AppInfo, onFinish: (Int, String?) -> Unit) {
                     onClick = {
                         scope.launch {
                             Log.i(TAG, "Uninstalling app ${patchApp.app.packageName}")
-                            uninstallFirst = false
-                            installing = 2
                             JUtils.uninstallApkByPackageName(lspApp,patchApp.app.packageName)
-                            installing = 0
+                            uninstallFirst = false
                         }
                     },
                     content = { Text(stringResource(android.R.string.ok)) }
@@ -429,21 +423,6 @@ private fun InstallDialog(patchApp: AppInfo, onFinish: (Int, String?) -> Unit) {
                 )
             },
             text = { Text(stringResource(R.string.patch_uninstall_text)) }
-        )
-    }
-
-    if (installing != 0) {
-        AlertDialog(
-            onDismissRequest = {},
-            confirmButton = {},
-            title = {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(if (installing == 1) R.string.installing else R.string.uninstalling),
-                    fontFamily = FontFamily.Serif,
-                    textAlign = TextAlign.Center
-                )
-            }
         )
     }
 }

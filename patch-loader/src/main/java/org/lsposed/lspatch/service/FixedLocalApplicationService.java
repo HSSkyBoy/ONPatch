@@ -1,10 +1,16 @@
 package org.lsposed.lspatch.service;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
+import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.lsposed.lspatch.util.ModuleLoader;
 import org.lsposed.lspd.models.Module;
 import org.lsposed.lspd.service.ILSPApplicationService;
 
@@ -13,7 +19,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
-    private List<Module> cachedModule;
+    private static final String TAG = "OPatch";
+    private final List<Module> cachedModule;
+    public FixedLocalApplicationService(Context context){
+        SharedPreferences shared = context.getSharedPreferences("opatch", Context.MODE_PRIVATE);
+        cachedModule = new ArrayList<>();
+        try {
+            Log.i(TAG,"use fixed local application service");
+            JSONArray mArr = new JSONArray(shared.getString("modules", "{}"));
+            Log.i(TAG,"use fixed local application service:"+shared.getString("modules", "{}"));
+            for (int i = 0; i < mArr.length(); i++) {
+                JSONObject mObj = mArr.getJSONObject(i);
+                Module m = new Module();
+                String path = mObj.getString("path");
+                String packageName = mObj.getString("packageName");
+                m.apkPath = path;
+                m.packageName = packageName;
+                m.file = ModuleLoader.loadModule(path);
+                cachedModule.add(m);
+            }
+        }catch (Exception e){
+            Log.e(TAG,Log.getStackTraceString(e));
+        }
+
+
+    }
     @Override
     public List<Module> getLegacyModulesList() throws RemoteException {
         return cachedModule;

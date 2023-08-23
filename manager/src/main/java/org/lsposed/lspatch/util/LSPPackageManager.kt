@@ -81,6 +81,7 @@ object LSPPackageManager {
         withContext(Dispatchers.IO) {
             runCatching {
                 JUtils.installApkByPackageManager(lspApp, lspApp.targetApkPath)
+                status = PackageInstaller.STATUS_SUCCESS
             }.onFailure {
                 status = PackageInstaller.STATUS_FAILURE
                 message = it.message + "\n" + it.stackTraceToString()
