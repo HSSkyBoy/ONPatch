@@ -27,9 +27,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ramcosta.composedestinations.annotation.Destination
@@ -326,7 +328,6 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
                     var installing by remember { mutableStateOf(false) }
                     if (installing) InstallDialog(viewModel.patchApp) { status, message ->
                         scope.launch {
-                            installing = false
                             if (status == PackageInstaller.STATUS_SUCCESS) {
                                 lspApp.globalScope.launch { snackbarHost.showSnackbar(installSuccessfully) }
                                 navigator.navigateUp()
@@ -339,13 +340,15 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
                             }
                         }
                     }
+                    Row {
+
+                    }
                     Row(Modifier.padding(top = 12.dp)) {
                         Button(
                             modifier = Modifier.weight(1f),
                             onClick = { navigator.navigateUp() },
                             content = { Text(stringResource(R.string.patch_return)) }
                         )
-                        Spacer(Modifier.weight(0.2f))
                         Button(
                             modifier = Modifier.weight(1f),
                             onClick = {

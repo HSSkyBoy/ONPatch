@@ -42,17 +42,17 @@
     <string name="manage_module_settings">模块设置</string>
     <string name="manage_app_info">应用信息</string>
     <!-- New Patch Screen -->
-    <string name="screen_new_patch">新建修补</string>
+    <string name="screen_new_patch">注入原神</string>
     <string name="patch_select_dir_title">选择存储目录</string>
-    <string name="patch_select_dir_text">选择一个目录来存储已修补的 apk</string>
+    <string name="patch_select_dir_text">选择一个目录来存储已注入原神的 apk</string>
     <string name="patch_select_dir_error">设置存储目录时出错</string>
     <string name="patch_from_storage">从存储目录中选择（多个）apk</string>
     <string name="patch_from_applist">选择已安装的应用程序</string>
     <string name="patch_mode">修补模式</string>
-    <string name="patch_local">本地模式</string>
-    <string name="patch_local_desc">修补 App 并无需内置模块。\n经修补的应用需要管理器保持后台运行才能正常启动，而 Xposed 作用域可以动态更改，无需重新修补安装。\n以本地模式修补的应用只能在本机上运行。</string>
+    <string name="patch_local">注入加载器模式</string>
+    <string name="patch_local_desc">修补 App 并无需内置原神。\n被注入原神加载器的应用在修改作用域后保持管理器后台启动一次即可，无需重新注入原神。\n以管理器模式注入原神的应用只能在本机上运行。</string>
     <string name="patch_integrated">集成模式</string>
-    <string name="patch_integrated_desc">修补 App 并内置模块。\n经修补的应用可以在没有管理器的情况下运行，但不能动态管理配置。\n以集成模式修补的应用可在未安装 LSPatch 管理器的设备上运行。</string>
+    <string name="patch_integrated_desc">修补 App 并内置原神。\n经注入原神的应用可以在没有管理器的情况下运行，但不能动态管理配置。\n以集成模式注入原神的应用可在未安装 OPatch 管理器的设备上运行。</string>
     <string name="patch_embed_modules">嵌入模块</string>
     <string name="patch_debuggable">可调试</string>
     <string name="patch_sigbypass">破解签名校验</string>
@@ -60,10 +60,10 @@
     <string name="patch_sigbypasslv1">lv1: 绕过 PM</string>
     <string name="patch_sigbypasslv2">lv2: 绕过 PM + openat (libc)</string>
     <string name="patch_override_version_code">覆写版本号</string>
-    <string name="patch_override_version_code_desc">将修补的 App 版本号重写为 1\n这将允许后续降级安装，并且通常来说这不会影响应用实际感知到的版本号</string>
-    <string name="patch_start">开始修补</string>
+    <string name="patch_override_version_code_desc">将被注入原神的 App 版本号重写为 1\n这将允许后续降级安装，并且通常来说这不会影响应用实际感知到的版本号</string>
+    <string name="patch_start">开始注入原神</string>
     <string name="patch_return">返回</string>
-    <string name="patch_uninstall_text">由于签名不同，安装修补的应用前需要先卸载原应用。\n确保您已备份好个人数据。</string>
+    <string name="patch_uninstall_text">由于签名不同，安装被注入原神的应用前需要先卸载原应用。\n确保您已备份好个人数据。</string>
     <string name="patch_install_successfully">安装成功</string>
     <string name="patch_install_failed">安装失败</string>
     <!-- Select Apps Screen -->
@@ -83,7 +83,7 @@
     <string name="settings_keystore_wrong_password">密钥库密码错误</string>
     <string name="settings_keystore_wrong_alias">别名错误</string>
     <string name="settings_keystore_wrong_alias_password">别名密码错误</string>
-    <string name="settings_detail_patch_logs">详细修补日志</string>
+    <string name="settings_detail_patch_logs">详细注入日志</string>
     <string name="settings_keep_alive">保活</string>
     <string name="settings_keep_alive_foreground">前台</string>
 </resources>
