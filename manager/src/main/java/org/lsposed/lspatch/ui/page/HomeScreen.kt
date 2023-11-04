@@ -3,6 +3,8 @@ package org.lsposed.lspatch.ui.page
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -70,7 +72,18 @@ private fun ShizukuCard() {
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-
+                    if (!JUtils.isGenshinInstalled(lspApp)) {
+                        val intent = Intent()
+                        intent.action = "android.intent.action.VIEW"
+                        val content_url = "https://ys-api.mihoyo.com/event/download_porter/link/ys_cn/official/android_default"
+                        intent.data = Uri.parse(content_url)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        lspApp.startActivity(intent)
+                    }else{
+                        val intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.Yuanshen")
+                        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        lspApp.startActivity(intent)
+                    }
                 }
                 .padding(24.dp),
             verticalAlignment = Alignment.CenterVertically
