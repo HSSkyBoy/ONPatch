@@ -264,6 +264,14 @@ public class LSPatch {
                 throw new PatchError("Error when adding dex", e);
             }
 
+            if (isInjectProvider){
+                try (var is = getClass().getClassLoader().getResourceAsStream("assets/provider.dex")) {
+                    dstZFile.add("assets/lspatch/provider.dex", is);
+                } catch (Throwable e) {
+                    throw new PatchError("Error when adding dex", e);
+                }
+            }
+
             if (!useManager) {
                 logger.i("Embedding modules...");
                 embedModules(dstZFile);

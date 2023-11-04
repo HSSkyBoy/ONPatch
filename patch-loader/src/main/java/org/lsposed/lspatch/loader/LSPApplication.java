@@ -2,6 +2,7 @@ package org.lsposed.lspatch.loader;
 
 import static org.lsposed.lspatch.share.Constants.CONFIG_ASSET_PATH;
 import static org.lsposed.lspatch.share.Constants.ORIGINAL_APK_ASSET_PATH;
+import static org.lsposed.lspatch.share.Constants.PROVIDER_DEX_ASSET_PATH;
 
 import android.app.ActivityThread;
 import android.app.LoadedApk;
@@ -34,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -47,6 +49,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.zip.ZipFile;
 
+import dalvik.system.DexFile;
 import de.robv.android.xposed.XposedHelpers;
 import hidden.HiddenApiBridge;
 
@@ -147,10 +150,14 @@ public class LSPApplication {
             try (ZipFile sourceFile = new ZipFile(appInfo.sourceDir)) {
                 cacheApkPath = originPath.resolve(sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH).getCrc() + ".apk");
             }
+            String sourceFileaa = appInfo.sourceDir;
 
             appInfo.sourceDir = cacheApkPath.toString();
             appInfo.publicSourceDir = cacheApkPath.toString();
             appInfo.appComponentFactory = config.appComponentFactory;
+
+
+
 
             if (!Files.exists(cacheApkPath)) {
                 Log.i(TAG, "Extract original apk");
@@ -160,11 +167,48 @@ public class LSPApplication {
                     Files.copy(is, cacheApkPath);
                 }
             }
+            Path providerPath = null;
+            if (config.injectProvider){
+                try (ZipFile sourceFile = new ZipFile(sourceFileaa)) {
+
+                    providerPath = Paths.get(appInfo.dataDir, "cache/opatch/origin/p_" + sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH).getCrc()+".dex");
+                    Files.deleteIfExists(providerPath);
+                    try (InputStream is = baseClassLoader.getResourceAsStream(PROVIDER_DEX_ASSET_PATH)) {
+                        Files.copy(is, providerPath);
+                    }
+                }catch (Exception e){
+                    Log.e(TAG, "Failed to inject provider:" + Log.getStackTraceString(e));
+                }
+
+            }
+
             cacheApkPath.toFile().setWritable(false);
 
             var mPackages = (Map<?, ?>) XposedHelpers.getObjectField(activityThread, "mPackages");
             mPackages.remove(appInfo.packageName);
             appLoadedApk = activityThread.getPackageInfoNoCheck(appInfo, compatInfo);
+
+
+
+            if (config.injectProvider){
+                ClassLoader loader = appLoadedApk.getClassLoader();
+                Object dexPathList = XposedHelpers.getObjectField(loader, "pathList");
+                Object dexElements = XposedHelpers.getObjectField(dexPathList, "dexElements");
+                int length = Array.getLength(dexElements);
+                Object newElements = Array.newInstance(dexElements.getClass().getComponentType(), length + 1);
+                System.arraycopy(dexElements, 0, newElements, 0, length);
+
+                DexFile dexFile = new DexFile(providerPath.toString());
+                Object element = XposedHelpers.newInstance(XposedHelpers.findClass("dalvik.system.DexPathList$Element",loader), new Class[]{
+                        DexFile.class
+                },dexFile);
+                Array.set(newElements, length, element);
+                XposedHelpers.setObjectField(dexPathList, "dexElements", newElements);
+            }
+
+
+
+
             XposedHelpers.setObjectField(mBoundApplication, "info", appLoadedApk);
 
             var activityClientRecordClass = XposedHelpers.findClass("android.app.ActivityThread$ActivityClientRecord", ActivityThread.class.getClassLoader());
