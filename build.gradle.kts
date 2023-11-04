@@ -45,8 +45,8 @@ val (coreCommitCount, coreLatestTag) = FileRepositoryBuilder().setGitDir(rootPro
 // sync from https://github.com/LSPosed/LSPosed/blob/master/build.gradle.kts
 val defaultManagerPackageName by extra("org.lsposed.opatch")
 val apiCode by extra(93)
-val verCode by extra(1)
-val verName by extra("0.0.1")
+val verCode by extra(2)
+val verName by extra("0.0.2")
 val coreVerCode by extra(coreCommitCount)
 val coreVerName by extra(coreLatestTag)
 val androidMinSdkVersion by extra(28)
