@@ -42,6 +42,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -71,6 +72,9 @@ public class LSPatch {
     @Parameter(names = {"-f", "--force"}, description = "Force overwrite exists output file")
     private boolean forceOverwrite = false;
 
+    @Parameter(names = {"--provider"}, description = "Inject Provider to manager data files")
+    private boolean isInjectProvider = false;
+
     @Parameter(names = {"-d", "--debuggable"}, description = "Set app to be debuggable")
     private boolean debuggableFlag = false;
 
@@ -91,6 +95,8 @@ public class LSPatch {
 
     @Parameter(names = {"-m", "--embed"}, description = "Embed provided modules to apk")
     private List<String> modules = new ArrayList<>();
+
+    private String packageName;
 
     private static final String ANDROID_MANIFEST_XML = "AndroidManifest.xml";
     private static final HashSet<String> ARCHES = new HashSet<>(Arrays.asList(
@@ -227,6 +233,7 @@ public class LSPatch {
                     throw new PatchError("Failed to parse AndroidManifest.xml");
                 appComponentFactory = pair.appComponentFactory;
                 minSdkVersion = pair.minSdkVersion;
+                packageName = pair.packageName;
                 logger.d("original appComponentFactory class: " + appComponentFactory);
                 logger.d("original minSdkVersion: " + minSdkVersion);
             }
@@ -336,6 +343,17 @@ public class LSPatch {
         // TODO: replace query_all with queries -> manager
         if (useManager)
             property.addUsesPermission("android.permission.QUERY_ALL_PACKAGES");
+        if (isInjectProvider){
+            HashMap<String,String> providerMap = new HashMap<>();
+            providerMap.put("name","bin.mt.file.content.MTDataFilesProvider");
+            providerMap.put("permission","android.permission.MANAGE_DOCUMENTS");
+            providerMap.put("exported","true");
+            providerMap.put("authorities",packageName + ".MTDataFilesProvider");
+            providerMap.put("grantUriPermissions","true");
+
+            property.addProvider(providerMap,"android.content.action.DOCUMENTS_PROVIDER");
+
+        }
 
         var os = new ByteArrayOutputStream();
         (new ManifestEditor(is, os, property)).processManifest();
