@@ -43,6 +43,7 @@ object Patcher {
                 embeddedModules?.forEach {
                     add("-m"); add(it)
                 }
+                if (config.injectProvider) add("--provider")
                 if (!MyKeyStore.useDefault) {
                     addAll(arrayOf("-k", MyKeyStore.file.path, Configs.keyStorePassword, Configs.keyStoreAlias, Configs.keyStoreAliasPassword))
                 }
