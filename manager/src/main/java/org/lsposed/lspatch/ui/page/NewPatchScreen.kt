@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageInstaller
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -399,20 +400,24 @@ private fun DoPatchBody(modifier: Modifier, navigator: DestinationsNavigator) {
                     val installFailed = stringResource(R.string.patch_install_failed)
                     val copyError = stringResource(R.string.copy_error)
                     var installing by remember { mutableStateOf(false) }
-                    if (installing) InstallDialog(viewModel.patchApp) { status, message ->
-                        scope.launch {
-                            if (status == PackageInstaller.STATUS_SUCCESS) {
-                                lspApp.globalScope.launch { snackbarHost.showSnackbar(installSuccessfully) }
-                                navigator.navigateUp()
-                            } else if (status != LSPPackageManager.STATUS_USER_CANCELLED) {
-                                val result = snackbarHost.showSnackbar(installFailed, copyError)
-                                if (result == SnackbarResult.ActionPerformed) {
-                                    val cm = lspApp.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                    cm.setPrimaryClip(ClipData.newPlainText("LSPatch", message))
+                    if (installing) {
+                        InstallDialog(viewModel.patchApp) { status, message ->
+                            scope.launch {
+                                installing = false
+                                if (status == PackageInstaller.STATUS_SUCCESS) {
+                                    lspApp.globalScope.launch { snackbarHost.showSnackbar(installSuccessfully) }
+                                    navigator.navigateUp()
+                                } else if (status != LSPPackageManager.STATUS_USER_CANCELLED) {
+                                    val result = snackbarHost.showSnackbar(installFailed, copyError)
+                                    if (result == SnackbarResult.ActionPerformed) {
+                                        val cm = lspApp.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                        cm.setPrimaryClip(ClipData.newPlainText("LSPatch", message))
+                                    }
                                 }
                             }
                         }
                     }
+
                     Row {
 
                     }
@@ -476,6 +481,7 @@ private fun InstallDialog(patchApp: AppInfo, onFinish: (Int, String?) -> Unit) {
             confirmButton = {
                 TextButton(
                     onClick = {
+                        onFinish(LSPPackageManager.STATUS_USER_CANCELLED, "Reset")
                         scope.launch {
                             Log.i(TAG, "Uninstalling app ${patchApp.app.packageName}")
                             JUtils.uninstallApkByPackageName(lspApp,patchApp.app.packageName)
