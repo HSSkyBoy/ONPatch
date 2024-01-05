@@ -2,6 +2,9 @@ package org.lsposed.lspatch.service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
@@ -25,7 +28,6 @@ public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
         SharedPreferences shared = context.getSharedPreferences("opatch", Context.MODE_PRIVATE);
         cachedModule = new ArrayList<>();
         try {
-            Log.i(TAG,"use fixed local application service");
             JSONArray mArr = new JSONArray(shared.getString("modules", "{}"));
             Log.i(TAG,"use fixed local application service:"+shared.getString("modules", "{}"));
             for (int i = 0; i < mArr.length(); i++) {
@@ -35,7 +37,17 @@ public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
                 String packageName = mObj.getString("packageName");
                 m.apkPath = path;
                 m.packageName = packageName;
-                m.file = ModuleLoader.loadModule(path);
+                if (!new File(m.apkPath).exists()){
+                    Log.i("OPatch","Module:" + m.packageName + " path not available, reset.");
+                    try {
+                        ApplicationInfo info = context.getPackageManager().getApplicationInfo(m.packageName, 0);
+                        m.apkPath = info.sourceDir;
+                        Log.i("OPatch","Module:" + m.packageName + " path reset to " + m.apkPath);
+                    }catch (Exception e){
+                        Log.e("OPatch",Log.getStackTraceString(e));
+                    }
+                }
+                m.file = ModuleLoader.loadModule(m.apkPath);
                 cachedModule.add(m);
             }
         }catch (Exception e){
