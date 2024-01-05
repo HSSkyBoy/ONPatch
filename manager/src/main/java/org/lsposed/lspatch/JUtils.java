@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.FileUtils;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
@@ -152,23 +153,85 @@ public class JUtils {
 
     public static boolean isGenshinInstalled(Context context){
         try {
-            PackageManager manager = context.getPackageManager();
-            manager.getApplicationInfo("com.miHoYo.Yuanshen",0);
-            return true;
-        }catch (Exception ignored){
-
-        }
+            if (!TextUtils.isEmpty(getGenshinVersion(context)))return true;
+            if (!TextUtils.isEmpty(getGenshinXiaomiVersion(context)))return true;
+            if (!TextUtils.isEmpty(getCloudYsVersion(context)))return true;
+            if (!TextUtils.isEmpty(getGenshinBilibiliVersion(context)))return true;
+            if (!TextUtils.isEmpty(getGenshinGlobalVersion(context)))return true;
+        }catch (Exception ignored){ }
         return false;
     }
-    public static String getGenshinVersion(Context context){
+    public static String getFullGenshinImpactVersionInfo(Context context){
+        String s = "";
+        String getInfo = getGenshinVersion(context);
+        if (!TextUtils.isEmpty(getInfo)){
+            s += "国服 " + getInfo + " 已安装\n";
+        }
+        getInfo = getGenshinGlobalVersion(context);
+        if (!TextUtils.isEmpty(getInfo)){
+            s += "国际服 " + getInfo + " 已安装\n";
+        }
+        getInfo = getCloudYsVersion(context);
+        if (!TextUtils.isEmpty(getInfo)){
+            s += "云原神 " + getInfo + " 已安装\n";
+        }
+        getInfo = getGenshinBilibiliVersion(context);
+        if (!TextUtils.isEmpty(getInfo)){
+            s += "B服 " + getInfo + " 已安装\n";
+        }
+        getInfo = getGenshinXiaomiVersion(context);
+        if (!TextUtils.isEmpty(getInfo)){
+            s += "小米服 " + getInfo + " 已安装\n";
+        }
+        if (!TextUtils.isEmpty(s)){
+            s = s.substring(0,s.length() -1);
+        }
+        return s;
+    }
+    private static String getCloudYsVersion(Context context){
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo("com.miHoYo.cloudgames.ys",0);
+            return info.versionName;
+        }catch (Exception e){
+            return "";
+        }
+    }
+    private static String getGenshinGlobalVersion(Context context){
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo("com.miHoYo.GenshinImpact",0);
+            return info.versionName.substring(0,info.versionName.indexOf("_"));
+        }catch (Exception ignored){
+            return "";
+        }
+    }
+    private static String getGenshinBilibiliVersion(Context context){
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo("com.miHoYo.ys.bilibili",0);
+            return info.versionName.substring(0,info.versionName.indexOf("_"));
+        }catch (Exception ignored){
+            return "";
+        }
+    }
+    private static String getGenshinXiaomiVersion(Context context){
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo("com.miHoYo.ys.mi",0);
+            return info.versionName.substring(0,info.versionName.indexOf("_"));
+        }catch (Exception ignored){
+            return "";
+        }
+    }
+    private static String getGenshinVersion(Context context){
         try {
             PackageManager manager = context.getPackageManager();
             PackageInfo info = manager.getPackageInfo("com.miHoYo.Yuanshen",0);
             return info.versionName.substring(0,info.versionName.indexOf("_"));
         }catch (Exception ignored){
-
+            return "";
         }
-        return "";
     }
 
 }

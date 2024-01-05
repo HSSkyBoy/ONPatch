@@ -80,7 +80,19 @@ private fun ShizukuCard() {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         lspApp.startActivity(intent)
                     }else{
-                        val intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.Yuanshen")
+                        var intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.Yuanshen")
+                        if (intent == null){
+                            intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.cloudgames.ys")
+                        }
+                        if (intent == null){
+                            intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.GenshinImpact")
+                        }
+                        if (intent == null){
+                            intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.ys.bilibili")
+                        }
+                        if (intent == null){
+                            intent = lspApp.packageManager.getLaunchIntentForPackage("com.miHoYo.ys.mi")
+                        }
                         intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         lspApp.startActivity(intent)
                     }
@@ -98,7 +110,7 @@ private fun ShizukuCard() {
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = "版本 " + JUtils.getGenshinVersion(lspApp),
+                        text = JUtils.getFullGenshinImpactVersionInfo(lspApp),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }

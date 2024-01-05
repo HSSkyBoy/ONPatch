@@ -23,12 +23,12 @@
     <string name="home_system_abi">系统架构</string>
     <string name="home_info_copied">已复制到剪贴板</string>
     <string name="home_support">支持</string>
-    <string name="home_description">OPatch 是一款免费的基于 LSPosed 核心的免 Root 原神注入 框架。</string>
+    <string name="home_description">OPatch 是一款免费的基于 LSPosed 核心的免 Root 注入原神 框架。</string>
     <string name="home_view_source_code"><![CDATA[查看源代码 %1$s<br/>加入我们的 %2$s 频道]]></string>
     <!-- Manage Screen -->
     <string name="screen_manage">管理</string>
     <string name="manage_loading">加载中</string>
-    <string name="manage_no_apps">尚无注入原神的应用</string>
+    <string name="manage_no_apps">尚无被注入原神的应用</string>
     <string name="manage_rolling">滚动</string>
     <string name="manage_update_loader">更新原神加载器</string>
     <string name="manage_update_loader_successfully">更新成功</string>
@@ -49,10 +49,10 @@
     <string name="patch_from_storage">从存储目录中选择（多个）apk</string>
     <string name="patch_from_applist">选择已安装的应用程序</string>
     <string name="patch_mode">修补模式</string>
-    <string name="patch_local">注入加载器模式</string>
-    <string name="patch_local_desc">修补 App 并无需内置原神。\n被注入原神加载器的应用在修改作用域后保持管理器后台启动一次即可，无需重新注入原神。\n以管理器模式注入原神的应用只能在本机上运行。</string>
-    <string name="patch_integrated">集成模式</string>
-    <string name="patch_integrated_desc">修补 App 并内置原神。\n经注入原神的应用可以在没有管理器的情况下运行，但不能动态管理配置。\n以集成模式注入原神的应用可在未安装 OPatch 管理器的设备上运行。</string>
+    <string name="patch_local">注入原神加载器模式</string>
+    <string name="patch_local_desc">修补 App 并无需内置原神。\n被注入原神加载器的应用在修改作用域后保持管理器后台启动一次即可，无需重新注入。\n被注入原神加载器的应用只能在本机上运行。</string>
+    <string name="patch_integrated">集成原神模式</string>
+    <string name="patch_integrated_desc">修补 App 并内置原神。\n被注入原神的应用可以在没有OPatch的情况下运行，但不能动态管理模块加载配置。</string>
     <string name="patch_embed_modules">嵌入模块</string>
     <string name="patch_debuggable">可调试</string>
     <string name="patch_inject_mt_provider">注入文件提供者</string>
@@ -62,10 +62,10 @@
     <string name="patch_sigbypasslv1">lv1: 绕过 PM</string>
     <string name="patch_sigbypasslv2">lv2: 绕过 PM + openat (libc)</string>
     <string name="patch_override_version_code">覆写版本号</string>
-    <string name="patch_override_version_code_desc">将被注入原神的 App 版本号重写为 1\n这将允许后续降级安装，并且通常来说这不会影响应用实际感知到的版本号</string>
-    <string name="patch_start">开始注入原神</string>
+    <string name="patch_override_version_code_desc">将被注入原神的 App 版本号重写为 1\n这将允许后续降级安装，并且通常来说这不会影响应用实际感知到的版本号(只是通常来说,如没有特殊需求不建议勾选)</string>
+    <string name="patch_start">开始注入</string>
     <string name="patch_return">返回</string>
-    <string name="patch_uninstall_text">由于签名不同，安装被注入原神的应用前需要先卸载原应用。\n确保您已备份好个人数据。</string>
+    <string name="patch_uninstall_text">由于签名不同，安装被注入的应用前需要先卸载原应用。\n确保您已备份好应用数据。</string>
     <string name="patch_install_successfully">安装成功</string>
     <string name="patch_install_failed">安装失败</string>
     <!-- Select Apps Screen -->
