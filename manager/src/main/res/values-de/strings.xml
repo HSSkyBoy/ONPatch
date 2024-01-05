@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Protokolle</string>
     <string name="off">Aus</string>
+    <string name="error_unknown">Unbekannter Fehler</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Einige Funktionen nicht verfügbar</string>
     <string name="home_api_version">API-Version</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Wählen Sie eine installierte App aus</string>
     <string name="patch_mode">Patch-Modus</string>
     <string name="patch_local">Lokal</string>
-    <string name="patch_local_desc">Patchen Sie eine App ohne eingebettete Module.\nFür die gepatchte App muss der Manager im Hintergrund ausgeführt werden, und der Xposed-Bereich kann ohne erneutes Patchen dynamisch geändert werden.\nLokal gepatchte Apps können nur auf dem lokalen Gerät ausgeführt werden.</string>
+    <string name="patch_local_desc">Patchen Sie eine App ohne eingebettete Module.\nDer Xposed-Bereich kann dynamisch geändert werden, ohne dass ein neuer Patch erforderlich ist.\nLokal gepatchte Apps können nur auf dem lokalen Gerät ausgeführt werden.</string>
     <string name="patch_integrated">Integriert</string>
     <string name="patch_integrated_desc">Patche eine App mit eingebetteten Modulen.\nDie gepatchte App kann ohne den Manager ausgeführt, aber nicht dynamisch verwaltet werden.\nIntegrierte gepatchte Apps können auf Geräten verwendet werden, auf denen der LSPatch Manager nicht installiert ist.</string>
     <string name="patch_embed_modules">Module einbetten</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Aufgrund unterschiedlicher Signaturen müssen Sie die Original-App deinstallieren, bevor Sie die gepatchte App installieren.\nStellen Sie sicher, dass Sie Ihre persönlichen Daten gesichert haben.</string>
     <string name="patch_install_successfully">Installation erfolgreich</string>
     <string name="patch_install_failed">Installation fehlgeschlagen</string>
+    <string name="patch_no_xposed_module">Es wurde(n) kein(e) Xposed-Modul(e) gefunden</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Apps auswählen</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Falscher Alias-Name</string>
     <string name="settings_keystore_wrong_alias_password">Falsches Alias-Passwort</string>
     <string name="settings_detail_patch_logs">Detaillierte Patch-Protokolle</string>
-    <string name="settings_keep_alive">Am Leben erhalten</string>
-    <string name="settings_keep_alive_foreground">Vordergrund</string>
 </resources>

@@ -3,8 +3,8 @@
     <string name="add">Adicionar</string>
     <string name="install">Instalar</string>
     <string name="installing">Instalando</string>
-    <string name="uninstall">Desinstalar</string>
-    <string name="uninstalling">Desinstalar</string>
+    <string name="uninstall">Desinstalaroi</string>
+    <string name="uninstalling">Desinstalarou</string>
     <string name="copy_error">Erro de cópia</string>
     <string name="apps">Apps</string>
     <string name="modules">Módulos</string>
@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Registos</string>
     <string name="off">Desligado</string>
+    <string name="error_unknown">Erro desconhecido</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Algumas funções indisponíveis</string>
     <string name="home_api_version">Versão da API</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Selecione um aplicativo instalado</string>
     <string name="patch_mode">Modo Patch</string>
     <string name="patch_local">Local</string>
-    <string name="patch_local_desc">Corrija um aplicativo sem módulos incorporados.\nO aplicativo corrigido precisa do gerenciador em execução em segundo plano, e o escopo Xposed pode ser alterado dinamicamente sem refazer o patch.\nAplicativos com patch local só podem ser executados no dispositivo local.</string>
+    <string name="patch_local_desc">Corrigir uma aplicação sem módulos incorporados.\nO escopo do Xposed pode ser alterado dinamicamente sem a necessidade de re-patch.\nOs aplicativos locais corrigidos só podem ser executados no dispositivo local.</string>
     <string name="patch_integrated">Integrado</string>
     <string name="patch_integrated_desc">Corrija um aplicativo com módulos incorporados.\nO aplicativo corrigido pode ser executado sem o gerenciador, mas não pode ser gerenciado dinamicamente.\nAplicativos corrigidos integrados podem ser usados em dispositivos que não possuem o LSPatch Manager instalado.</string>
     <string name="patch_embed_modules">Incorporar módulos</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Devido a assinaturas diferentes, você precisa desinstalar o aplicativo original antes de instalar o corrigido.\nCertifique-se de ter feito backup dos dados pessoais.</string>
     <string name="patch_install_successfully">Instalar com sucesso</string>
     <string name="patch_install_failed">Falha na instalação</string>
+    <string name="patch_no_xposed_module">Nenhum módulo Xposed foi encontrado</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Seleccionar aplicações</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Nome falso</string>
     <string name="settings_keystore_wrong_alias_password">Palavra-passe de outrora incorrecta</string>
     <string name="settings_detail_patch_logs">Registos de remendos detalhados</string>
-    <string name="settings_keep_alive">Mantenha-se vivo</string>
-    <string name="settings_keep_alive_foreground">Primeiro plano</string>
 </resources>

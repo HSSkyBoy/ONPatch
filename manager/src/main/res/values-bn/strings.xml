@@ -13,6 +13,7 @@
     <string name="screen_repo">রেপো</string>
     <string name="screen_logs">লগ</string>
     <string name="off">বন্ধ</string>
+    <string name="error_unknown">অজানা ত্রুটি</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">কিছু ফাংশন অনুপলব্ধ</string>
     <string name="home_api_version">API সংস্করণ</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">একটি ইনস্টল করা অ্যাপ্লিকেশন নির্বাচন করুন</string>
     <string name="patch_mode">প্যাচ মোড</string>
     <string name="patch_local">স্থানীয়</string>
-    <string name="patch_local_desc">এম্বেড করা মডিউল ছাড়াই একটি অ্যাপ প্যাচ করুন।\nপ্যাচ করা অ্যাপটির ব্যাকগ্রাউন্ডে চলমান ম্যানেজার প্রয়োজন, এবং এক্সপোজড স্কোপ রি-প্যাচ ছাড়াই গতিশীলভাবে পরিবর্তন করা যেতে পারে।\nস্থানীয় প্যাচ করা অ্যাপ শুধুমাত্র স্থানীয় ডিভাইসে চলতে পারে।</string>
+    <string name="patch_local_desc">এম্বেড করা মডিউল ছাড়াই একটি অ্যাপ প্যাচ করুন।\nএক্সপোজড স্কোপ রি-প্যাচ ছাড়াই গতিশীলভাবে পরিবর্তন করা যেতে পারে।\nস্থানীয় প্যাচ করা অ্যাপ শুধুমাত্র স্থানীয় ডিভাইসে চলতে পারে।</string>
     <string name="patch_integrated">কই তুমি</string>
     <string name="patch_integrated_desc">কি নাই.</string>
     <string name="patch_embed_modules">করছি</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">বিভিন্ন স্বাক্ষরের কারণে, প্যাচ করা একটি ইনস্টল করার আগে আপনাকে আসল অ্যাপটি আনইনস্টল করতে হবে।\nআপনি ব্যক্তিগত ডেটা ব্যাক আপ করেছেন তা নিশ্চিত করুন৷</string>
     <string name="patch_install_successfully">সফলভাবে ইনস্টল করুন</string>
     <string name="patch_install_failed">ইনস্টল ব্যর্থ হয়েছে</string>
+    <string name="patch_no_xposed_module">No Xposed module(s) were found</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">অ্যাপস নির্বাচন করুন</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">ভুল উপনাম নাম</string>
     <string name="settings_keystore_wrong_alias_password">ভুল ওরফে পাসওয়ার্ড</string>
     <string name="settings_detail_patch_logs">বিস্তারিত প্যাচ লগ</string>
-    <string name="settings_keep_alive">জিবন্ত রাখ</string>
-    <string name="settings_keep_alive_foreground">ফোরগ্রাউন্ড</string>
 </resources>

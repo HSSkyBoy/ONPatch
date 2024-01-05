@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Žurnalai</string>
     <string name="off">Išjungta</string>
+    <string name="error_unknown">Nežinoma klaida</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Kai kurios funkcijos nepasiekiamos</string>
     <string name="home_api_version">API versija</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Pasirinkite įdiegtą programą</string>
     <string name="patch_mode">Patch režimas</string>
     <string name="patch_local">Vietinis</string>
-    <string name="patch_local_desc">Pataisykite programą be įterptų modulių.\nPataisytai programai reikia, kad tvarkyklė veiktų fone, o Xposed taikymo sritį galima dinamiškai keisti be pakartotinio pataisymo.\nVietinės pataisytos programos gali veikti tik vietiniame įrenginyje.</string>
+    <string name="patch_local_desc">Pataisykite programą be įterptųjų modulių.\n\"Xposed\" apimtį galima dinamiškai keisti be pakartotinio pataisymo.\nVietinės pataisytos programos gali veikti tik vietiniame įrenginyje.</string>
     <string name="patch_integrated">Integruota</string>
     <string name="patch_integrated_desc">Pataisykite programą su įterptais moduliais.\nPataisyta programa gali veikti be tvarkyklės, bet negali būti valdoma dinamiškai.\nIntegruotas pataisytas programas galima naudoti įrenginiuose, kuriuose nėra įdiegta LSPatch Manager.</string>
     <string name="patch_embed_modules">Įterpti modulius</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Dėl skirtingų parašų prieš įdiegdami pataisytą programą turite pašalinti originalią programą.\nĮsitikinkite, kad turite atsargines asmens duomenų kopijas.</string>
     <string name="patch_install_successfully">Įdiegti sėkmingai</string>
     <string name="patch_install_failed">Diegimas nepavyko</string>
+    <string name="patch_no_xposed_module">Nerastas (-i) nė vienas (-i) \"Xposed\" modulis (-iai)</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Pasirinkite programas</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Neteisingas pseudonimas</string>
     <string name="settings_keystore_wrong_alias_password">Neteisingas slapyvardžio slaptažodis</string>
     <string name="settings_detail_patch_logs">Išsamūs pataisų žurnalai</string>
-    <string name="settings_keep_alive">Išlaikykite gyvybę</string>
-    <string name="settings_keep_alive_foreground">Naujos žinios</string>
 </resources>

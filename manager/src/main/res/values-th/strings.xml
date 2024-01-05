@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">บันทึก</string>
     <string name="off">ปิด</string>
+    <string name="error_unknown">Unknown error</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">ฟังก์ชั่นบางอย่างใช้งานไม่ได้</string>
     <string name="home_api_version">เวอร์ชัน API</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">เลือกแอพที่ติดตั้ง</string>
     <string name="patch_mode">โหมดแพทช์</string>
     <string name="patch_local">ท้องถิ่น</string>
-    <string name="patch_local_desc">แก้ไขแอปโดยไม่ต้องฝังโมดูล\nแอปแพตช์ต้องการให้ผู้จัดการทำงานในเบื้องหลัง และขอบเขต Xposed สามารถเปลี่ยนแปลงไดนามิกโดยไม่ต้องแพตช์ใหม่\nแอพที่แพตช์ในเครื่องสามารถทำงานบนอุปกรณ์ท้องถิ่นเท่านั้น</string>
+    <string name="patch_local_desc">แพทช์แอปที่ไม่มีโมดูลฝังอยู่\nขอบเขต Xposed สามารถเปลี่ยนแปลงได้แบบไดนามิกโดยไม่ต้องแพตช์ใหม่\nแอพที่ได้รับการติดตั้งในเครื่องสามารถทำงานได้บนอุปกรณ์ในเครื่องเท่านั้น</string>
     <string name="patch_integrated">แบบบูรณาการ</string>
     <string name="patch_integrated_desc">Patch an app with modules embedded.\nThe patched app can run without the manager, but cannot be managed dynamically.\nIntegrated patched apps can be used on devices that do not have LSPatch Manager installed.</string>
     <string name="patch_embed_modules">โมดูลฝังตัว</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">เนื่องจากลายเซ็นต่างกัน คุณต้องถอนการติดตั้งแอปเดิมก่อนที่จะติดตั้งแอปที่แพตช์\nตรวจสอบให้แน่ใจว่าคุณได้สำรองข้อมูลส่วนบุคคลแล้ว</string>
     <string name="patch_install_successfully">ติดตั้งสำเร็จ</string>
     <string name="patch_install_failed">ติดตั้งไม่สำเร็จ</string>
+    <string name="patch_no_xposed_module"></string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">เลือกแอพ</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">ชื่อนามแฝงไม่ถูกต้อง</string>
     <string name="settings_keystore_wrong_alias_password">รหัสผ่านนามแฝงไม่ถูกต้อง</string>
     <string name="settings_detail_patch_logs">บันทึกการแก้ไขรายละเอียด</string>
-    <string name="settings_keep_alive">ให้มีชีวิตอยู่</string>
-    <string name="settings_keep_alive_foreground">เบื้องหน้า</string>
 </resources>

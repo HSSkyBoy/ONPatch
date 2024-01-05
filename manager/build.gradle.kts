@@ -9,10 +9,10 @@ val coreVerName: String by rootProject.extra
 
 plugins {
     alias(libs.plugins.agp.app)
-    id("com.google.devtools.ksp")
-    id("dev.rikka.tools.refine")
+    alias(lspatch.plugins.google.devtools.ksp)
+    alias(lspatch.plugins.rikka.tools.refine)
+    alias(lspatch.plugins.kotlin.android)
     id("kotlin-parcelize")
-    kotlin("android")
 }
 
 android {

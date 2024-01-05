@@ -2,14 +2,12 @@ package org.lsposed.lspatch
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 import org.lsposed.lspatch.manager.AppBroadcastReceiver
-import org.lsposed.lspatch.manager.ModuleService
 import org.lsposed.lspatch.util.LSPPackageManager
 import java.io.File
 
@@ -31,7 +29,6 @@ class LSPApplication : Application() {
         tmpApkDir = cacheDir.resolve("apk").also { it.mkdir() }
         prefs = lspApp.getSharedPreferences("settings", Context.MODE_PRIVATE)
         AppBroadcastReceiver.register(this)
-        startService(Intent(this, ModuleService::class.java))
         globalScope.launch { LSPPackageManager.fetchAppList() }
     }
 }

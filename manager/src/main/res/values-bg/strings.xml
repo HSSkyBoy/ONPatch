@@ -13,6 +13,7 @@
     <string name="screen_repo">Репо</string>
     <string name="screen_logs">Дневници</string>
     <string name="off">Изключено</string>
+    <string name="error_unknown">Неизвестна грешка</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Някои функции са недостъпни</string>
     <string name="home_api_version">Версия на API</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Изберете инсталирано приложение</string>
     <string name="patch_mode">Режим Patch</string>
     <string name="patch_local">Местни</string>
-    <string name="patch_local_desc">Поправка на приложение без вградени модули.\nПатчираното приложение се нуждае от мениджър, работещ във фонов режим, и обхватът на Xposed може да се променя динамично, без да се налага повторно патчване.\nЛокалните патирани приложения могат да се изпълняват само на локалното устройство.</string>
+    <string name="patch_local_desc">Поправка на приложение без вградени модули.\nОбхватът на Xposed може да бъде променян динамично, без да се налага повторна кръпка.\nЛокално патчираните приложения могат да работят само на локалното устройство.</string>
     <string name="patch_integrated">Интегриран</string>
     <string name="patch_integrated_desc">Пач на приложение с вградени модули.\nПриложението с корекция може да работи без мениджъра, но не може да се управлява динамично.\nИнтегрираните пакетирани приложения могат да се използват на устройства, които нямат инсталиран LSPatch Manager.</string>
     <string name="patch_embed_modules">Вграждане на модули</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Поради различните сигнатури е необходимо да деинсталирате оригиналното приложение, преди да инсталирате коригираното.\nУверете се, че сте направили резервно копие на личните си данни.</string>
     <string name="patch_install_successfully">Инсталирайте успешно</string>
     <string name="patch_install_failed">Инсталацията е неуспешна</string>
+    <string name="patch_no_xposed_module">Не са открити модул(и) Xposed</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Изберете приложения</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Неправилно име на псевдоним</string>
     <string name="settings_keystore_wrong_alias_password">Грешна парола за псевдоним</string>
     <string name="settings_detail_patch_logs">Подробни дневници на кръпките</string>
-    <string name="settings_keep_alive">Запазете живота си</string>
-    <string name="settings_keep_alive_foreground">На преден план</string>
 </resources>

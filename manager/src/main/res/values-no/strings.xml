@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Tømmerstokker</string>
     <string name="off">Av</string>
+    <string name="error_unknown">Ukjent feil</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Noen funksjoner er utilgjengelige</string>
     <string name="home_api_version">API-versjon</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Velg en installert app</string>
     <string name="patch_mode">Patch-modus</string>
     <string name="patch_local">Lokalt</string>
-    <string name="patch_local_desc">Patch en app uten innebygde moduler.\nDen lappede appen trenger at manageren kjører i bakgrunnen, og Xposed-omfanget kan endres dynamisk uten re-patch.\nLokale lappede apper kan bare kjøres på den lokale enheten.</string>
+    <string name="patch_local_desc">Patch en app uten innebygde moduler.\nXposed scope kan endres dynamisk uten re-patch.\nLokale lappede apper kan bare kjøres på den lokale enheten.</string>
     <string name="patch_integrated">Integrert</string>
     <string name="patch_integrated_desc">Patch en app med innebygde moduler.\nDen lappede appen kan kjøres uten administratoren, men kan ikke administreres dynamisk.\nIntegrerte lappede apper kan brukes på enheter som ikke har LSPatch Manager installert.</string>
     <string name="patch_embed_modules">Bygg inn moduler</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">På grunn av forskjellige signaturer, må du avinstallere den originale appen før du installerer den lappede.\nSørg for at du har sikkerhetskopiert personlige data.</string>
     <string name="patch_install_successfully">Installer vellykket</string>
     <string name="patch_install_failed">Installasjonen mislyktes</string>
+    <string name="patch_no_xposed_module">Ingen Xposed-modul(er) ble funnet</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Velg Apper</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Feil aliasnavn</string>
     <string name="settings_keystore_wrong_alias_password">Feil alias passord</string>
     <string name="settings_detail_patch_logs">Detalj patchlogger</string>
-    <string name="settings_keep_alive">Holde i live</string>
-    <string name="settings_keep_alive_foreground">Forgrunn</string>
 </resources>

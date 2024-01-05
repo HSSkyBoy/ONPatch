@@ -13,6 +13,7 @@
     <string name="screen_repo">ריפו</string>
     <string name="screen_logs">יומנים</string>
     <string name="off">כבוי</string>
+    <string name="error_unknown">שגיאה לא ידועה</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">חלק מהפונקציות אינן זמינות</string>
     <string name="home_api_version">גרסת API</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">בחר אפליקציה מותקנת</string>
     <string name="patch_mode">מצב תיקון</string>
     <string name="patch_local">מְקוֹמִי</string>
-    <string name="patch_local_desc">תקן אפליקציה ללא מודולים מוטבעים.\nהאפליקציה המתוקנת צריכה שהמנהל יפעל ברקע, וניתן לשנות את היקף Xposed באופן דינמי ללא תיקון מחדש.\nאפליקציות מקומיות מתוקנות יכולות לפעול רק במכשיר המקומי.</string>
+    <string name="patch_local_desc">תקן אפליקציה ללא מודולים מוטבעים.\nניתן לשנות את היקף Xposed באופן דינמי ללא תיקון מחדש.\nאפליקציות מקומיות מתוקנות יכולות לפעול רק במכשיר המקומי.</string>
     <string name="patch_integrated">מְשׁוּלָב</string>
     <string name="patch_integrated_desc">תקן אפליקציה עם מודולים משובצים.\nהאפליקציה המתוקנת יכולה לפעול ללא המנהל, אך לא ניתן לנהל אותה באופן דינמי.\nניתן להשתמש באפליקציות מתוקנות משולבות במכשירים שלא מותקן בהם LSPatch Manager.</string>
     <string name="patch_embed_modules">הטמע מודולים</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">עקב חתימות שונות, עליך להסיר את ההתקנה של האפליקציה המקורית לפני התקנת האפליקציה המתוקנת.\nודא שגיבית את הנתונים האישיים.</string>
     <string name="patch_install_successfully">התקן בהצלחה</string>
     <string name="patch_install_failed">ההתקנה נכשלה</string>
+    <string name="patch_no_xposed_module">לא נמצאו מודולי Xposed</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">בחר אפליקציות</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">שם כינוי שגוי</string>
     <string name="settings_keystore_wrong_alias_password">סיסמת כינוי שגויה</string>
     <string name="settings_detail_patch_logs">פירוט יומני תיקון</string>
-    <string name="settings_keep_alive">להשאיר בחיים</string>
-    <string name="settings_keep_alive_foreground">חֲזִית</string>
 </resources>

@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Lokit</string>
     <string name="off">Off</string>
+    <string name="error_unknown">Tuntematon virhe</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Jotkut toiminnot eivät ole käytettävissä</string>
     <string name="home_api_version">API-versio</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Valitse asennettu sovellus</string>
     <string name="patch_mode">Patch-tila</string>
     <string name="patch_local">Paikallinen</string>
-    <string name="patch_local_desc">Korjaa sovellus ilman upotettuja moduuleja.\nKorjattu sovellus tarvitsee taustalla toimivan hallinnan, ja Xposed-aluetta voidaan muuttaa dynaamisesti ilman korjausta.\nPaikalliset korjatut sovellukset voivat toimia vain paikallisessa laitteessa.</string>
+    <string name="patch_local_desc">Korjaa sovellus ilman upotettuja moduuleja.\nXposedin laajuutta voidaan muuttaa dynaamisesti ilman uudelleenpatchausta.\nPaikalliset paikallistetut sovellukset voivat toimia vain paikallisella laitteella.</string>
     <string name="patch_integrated">Integroitu</string>
     <string name="patch_integrated_desc">Korjaa sovellus, jossa on upotettuja moduuleja.\nKorjattu sovellus voi toimia ilman hallintaa, mutta sitä ei voida hallita dynaamisesti.\nIntegroituja korjattuja sovelluksia voidaan käyttää laitteissa, joihin ei ole asennettu LSPatch Manageria.</string>
     <string name="patch_embed_modules">Upota moduulit</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Erilaisten allekirjoitusten vuoksi sinun on poistettava alkuperäinen sovellus ennen korjatun sovelluksen asentamista.\nVarmista, että olet varmuuskopioinut henkilökohtaiset tiedot.</string>
     <string name="patch_install_successfully">Asennus onnistui</string>
     <string name="patch_install_failed">Asennus epäonnistui</string>
+    <string name="patch_no_xposed_module">Xposed-moduulia (-moduulia) ei löytynyt</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Valitse sovellukset</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Väärä alias-nimi</string>
     <string name="settings_keystore_wrong_alias_password">Väärä alias-salasana</string>
     <string name="settings_detail_patch_logs">Yksityiskohtaiset korjauslokit</string>
-    <string name="settings_keep_alive">Pidä hengissä</string>
-    <string name="settings_keep_alive_foreground">Tulosaineisto</string>
 </resources>

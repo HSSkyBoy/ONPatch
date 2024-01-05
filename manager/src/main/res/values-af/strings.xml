@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Logs</string>
     <string name="off">Af</string>
+    <string name="error_unknown">Onbekende fout</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Sommige funksies nie beskikbaar nie</string>
     <string name="home_api_version">API weergawe</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Kies \'n geïnstalleerde toepassing</string>
     <string name="patch_mode">Patch Mode</string>
     <string name="patch_local">Plaaslik</string>
-    <string name="patch_local_desc">Plak \'n toepassing sonder modules ingebed.\nDie gelapte toepassing moet die bestuurder in die agtergrond laat loop, en Xposed-omvang kan dinamies verander word sonder om te herpleister.\nPlaaslike gelapte toepassings kan slegs op die plaaslike toestel loop.</string>
+    <string name="patch_local_desc">Maak \'n toepassing sonder modules ingebed.\nXposed omvang kan dinamies verander word sonder her-patch.\nPlaaslike gelapte programme kan slegs op die plaaslike toestel loop.</string>
     <string name="patch_integrated">Geïntegreerde</string>
     <string name="patch_integrated_desc">Patcher une application avec des modules intégrés.\nL\'application corrigée peut fonctionner sans le gestionnaire mais ne peut pas être gérée dynamiquement.\nLes applications patchées intégrées peuvent être utilisées sur des appareils sur lesquels LSPatch Manager n\'est pas installé.</string>
     <string name="patch_embed_modules">Sluit modules in</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">As gevolg van verskillende handtekeninge, moet u die oorspronklike toepassing deïnstalleer voordat u die gelapte een installeer.\nMaak seker dat jy persoonlike data gerugsteun het.</string>
     <string name="patch_install_successfully">Installeer suksesvol</string>
     <string name="patch_install_failed">Installering het misluk</string>
+    <string name="patch_no_xposed_module">Geen Xposed-module(s) is gevind nie</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Kies Toepassings</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Verkeerde alias naam</string>
     <string name="settings_keystore_wrong_alias_password">Verkeerde alias wagwoord</string>
     <string name="settings_detail_patch_logs">Detail pleister logs</string>
-    <string name="settings_keep_alive">Hou aan die lewe</string>
-    <string name="settings_keep_alive_foreground">Voorgrond</string>
 </resources>

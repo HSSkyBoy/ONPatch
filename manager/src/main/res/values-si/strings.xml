@@ -13,6 +13,7 @@
     <string name="screen_repo">රෙපෝ</string>
     <string name="screen_logs">සටහන්</string>
     <string name="off">අක්රියයි</string>
+    <string name="error_unknown">නොදන්නා දෝෂයකි</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">සමහර කාර්යයන් නොමැත</string>
     <string name="home_api_version">API අනුවාදය</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">ස්ථාපිත යෙදුමක් තෝරන්න</string>
     <string name="patch_mode">පැච් මාදිලිය</string>
     <string name="patch_local">දේශීය</string>
-    <string name="patch_local_desc">කාවැද්දූ මොඩියුල නොමැති යෙදුමක් පැච් කරන්න.\nපැච් කරන ලද යෙදුමට පසුබිමේ ක්‍රියාත්මක වන කළමනාකරු අවශ්‍ය වන අතර, නැවත පැච් කිරීමකින් තොරව Xposed විෂය පථය ගතිකව වෙනස් කළ හැක.\nදේශීය පැච් කළ යෙදුම් ධාවනය කළ හැක්කේ දේශීය උපාංගයේ පමණි.</string>
+    <string name="patch_local_desc">කාවැද්දූ මොඩියුල නොමැති යෙදුමක් පැච් කරන්න.\nXposed විෂය පථය නැවත පැච් කිරීමකින් තොරව ගතිකව වෙනස් කළ හැක.\nදේශීය පැච් කළ යෙදුම් ධාවනය කළ හැක්කේ දේශීය උපාංගයේ පමණි.</string>
     <string name="patch_integrated">ඒකාබද්ධ</string>
     <string name="patch_integrated_desc">කාවැද්දූ මොඩියුල සහිත යෙදුමක් පැච් කරන්න.\nපැච් කළ යෙදුම කළමනාකරු නොමැතිව ධාවනය කළ හැකි නමුත් ගතිකව කළමනාකරණය කළ නොහැක.\nLSPatch Manager ස්ථාපනය කර නොමැති උපාංග මත ඒකාබද්ධ පැච් යෙදුම් භාවිතා කළ හැක.</string>
     <string name="patch_embed_modules">මොඩියුල තැන්පත් කරන්න</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">විවිධ අත්සන් හේතුවෙන්, පැච් කළ එක ස්ථාපනය කිරීමට පෙර ඔබට මුල් යෙදුම අස්ථාපනය කිරීමට අවශ්‍ය වේ.\nඔබ පුද්ගලික දත්ත උපස්ථ කර ඇති බවට වග බලා ගන්න.</string>
     <string name="patch_install_successfully">සාර්ථකව ස්ථාපනය කරන්න</string>
     <string name="patch_install_failed">ස්ථාපනය අසාර්ථක විය</string>
+    <string name="patch_no_xposed_module">Xposed මොඩියුල(ය) හමු නොවිණි</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">යෙදුම් තෝරන්න</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">වැරදි අන්වර්ථ නාමයක්</string>
     <string name="settings_keystore_wrong_alias_password">වැරදි අන්වර්ථ මුරපදය</string>
     <string name="settings_detail_patch_logs">විස්තර පැච් ලොග</string>
-    <string name="settings_keep_alive">ජීවත් කරවන්න</string>
-    <string name="settings_keep_alive_foreground">පෙරබිම</string>
 </resources>

@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Protokoly</string>
     <string name="off">Vypnuto</string>
+    <string name="error_unknown">Neznámá chyba</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Některé funkce nejsou k dispozici</string>
     <string name="home_api_version">Verze API</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Vyberte nainstalovanou aplikaci</string>
     <string name="patch_mode">Režim opravy</string>
     <string name="patch_local">Místní</string>
-    <string name="patch_local_desc">Opravte aplikaci bez vestavěných modulů.\nOpravená aplikace vyžaduje, aby správce běžel na pozadí a rozsah Xposed lze dynamicky měnit bez opětovné opravy.\nMístní opravené aplikace lze spustit pouze na místním zařízení.</string>
+    <string name="patch_local_desc">Oprava aplikace bez vložených modulů.\nRozsah Xposed lze dynamicky měnit bez opětovného záplatování.\nMístní záplatované aplikace lze spustit pouze na místním zařízení.</string>
     <string name="patch_integrated">Integrovaný</string>
     <string name="patch_integrated_desc">Opravte aplikaci s vestavěnými moduly.\nOpravená aplikace může běžet bez správce, ale nelze ji spravovat dynamicky.\nIntegrované opravené aplikace lze používat na zařízeních, která nemají nainstalovaný LSPatch Manager.</string>
     <string name="patch_embed_modules">Vložit moduly</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Kvůli různým podpisům musíte před instalací opravené odinstalovat původní aplikaci.\nUjistěte se, že máte zálohovaná osobní data.</string>
     <string name="patch_install_successfully">Nainstalujte úspěšně</string>
     <string name="patch_install_failed">Instalace se nezdařila</string>
+    <string name="patch_no_xposed_module">Nebyly nalezeny žádné moduly Xposed</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Vybrané aplikace</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Špatný název aliasu</string>
     <string name="settings_keystore_wrong_alias_password">Špatné heslo aliasu</string>
     <string name="settings_detail_patch_logs">Podrobné protokoly oprav</string>
-    <string name="settings_keep_alive">Udržovat při životě</string>
-    <string name="settings_keep_alive_foreground">Přední stránka</string>
 </resources>

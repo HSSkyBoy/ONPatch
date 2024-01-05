@@ -13,6 +13,7 @@
     <string name="screen_repo">Repo</string>
     <string name="screen_logs">Palgid</string>
     <string name="off">Väljas</string>
+    <string name="error_unknown">Teadmata viga</string>
     <!-- Home Screen -->
     <string name="home_shizuku_warning">Mõned funktsioonid pole saadaval</string>
     <string name="home_api_version">API versioon</string>
@@ -50,7 +51,7 @@
     <string name="patch_from_applist">Valige installitud rakendus</string>
     <string name="patch_mode">Paigutuse režiim</string>
     <string name="patch_local">Kohalik</string>
-    <string name="patch_local_desc">Paigutage rakendus, kus pole manustatud mooduleid.\nPaigutatud rakendus vajab taustal töötavat haldurit ja Xposedi ulatust saab dünaamiliselt muuta ilma uuesti paigata.\nKohalikud paigatud rakendused saavad töötada ainult kohalikus seadmes.</string>
+    <string name="patch_local_desc">Paigaldage rakendus ilma mooduliteta sisseehitatud.\nXposed ulatust saab dünaamiliselt muuta ilma uuesti paranduseta.\nKohalikud parandatud rakendused saavad töötada ainult kohalikus seadmes.</string>
     <string name="patch_integrated">Integreeritud</string>
     <string name="patch_integrated_desc">Paigutage manustatud moodulitega rakendust.\nPaigutatud rakendus võib töötada ilma haldurita, kuid seda ei saa dünaamiliselt hallata.\nIntegreeritud paigatud rakendusi saab kasutada seadmetes, kuhu pole installitud LSPatch Manager.</string>
     <string name="patch_embed_modules">Manustage moodulid</string>
@@ -66,6 +67,7 @@
     <string name="patch_uninstall_text">Erinevate allkirjade tõttu peate enne paigatud rakenduse installimist algse rakenduse desinstallima.\nVeenduge, et olete isikuandmed varundanud.</string>
     <string name="patch_install_successfully">Installimine õnnestus</string>
     <string name="patch_install_failed">Install ebaõnnestus</string>
+    <string name="patch_no_xposed_module">Xposed moodul(id) ei leitud</string>
     <!-- Select Apps Screen -->
     <string name="screen_select_apps">Valige Rakendused</string>
     <!-- Settings Screen -->
@@ -84,6 +86,4 @@
     <string name="settings_keystore_wrong_alias">Vale pseudonüümi nimi</string>
     <string name="settings_keystore_wrong_alias_password">Vale aliase parool</string>
     <string name="settings_detail_patch_logs">Üksikasjade paikade logid</string>
-    <string name="settings_keep_alive">Elus hoidma</string>
-    <string name="settings_keep_alive_foreground">Esiplaan</string>
 </resources>
