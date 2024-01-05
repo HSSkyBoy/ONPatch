@@ -75,6 +75,9 @@ public class LSPatch {
     @Parameter(names = {"--provider"}, description = "Inject Provider to manager data files")
     private boolean isInjectProvider = false;
 
+    @Parameter(names = {"--outputLog"}, description = "Output Log to Media")
+    private boolean outputLog = true;
+
     @Parameter(names = {"-d", "--debuggable"}, description = "Set app to be debuggable")
     private boolean debuggableFlag = false;
 
@@ -95,6 +98,8 @@ public class LSPatch {
 
     @Parameter(names = {"-m", "--embed"}, description = "Embed provided modules to apk")
     private List<String> modules = new ArrayList<>();
+
+
 
     private String packageName;
 
@@ -240,7 +245,7 @@ public class LSPatch {
 
             logger.i("Patching apk...");
             // modify manifest
-            final var config = new PatchConfig(useManager, debuggableFlag, overrideVersionCode, sigbypassLevel, originalSignature, appComponentFactory,isInjectProvider);
+            final var config = new PatchConfig(useManager, debuggableFlag, overrideVersionCode, sigbypassLevel, originalSignature, appComponentFactory,isInjectProvider,outputLog);
             final var configBytes = new Gson().toJson(config).getBytes(StandardCharsets.UTF_8);
             final var metadata = Base64.getEncoder().encodeToString(configBytes);
             try (var is = new ByteArrayInputStream(modifyManifestFile(manifestEntry.open(), metadata, minSdkVersion))) {

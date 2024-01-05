@@ -60,6 +60,8 @@
     <string name="patch_debuggable">Debuggable</string>
     <string name="patch_inject_mt_provider" translatable="false">Inject Files Provider</string>
     <string name="patch_inject_mt_provider_desc" translatable="false">Inject file providers to manage files in the data directory without root privileges</string>
+    <string name="output_log_to_media" translatable="false">output log to media path</string>
+    <string name="output_log_to_media_desc" translatable="false">将模块的xposed日志到被注入原神的App的media目录</string>
     <string name="patch_sigbypass">Signature bypass</string>
     <string name="patch_sigbypasslv0">lv0: Off</string>
     <string name="patch_sigbypasslv1">lv1: Bypass PM</string>
@@ -92,4 +94,5 @@
     <string name="settings_keystore_wrong_alias">Wrong alias name</string>
     <string name="settings_keystore_wrong_alias_password">Wrong alias password</string>
     <string name="settings_detail_patch_logs">Detail patch logs</string>
+
 </resources>

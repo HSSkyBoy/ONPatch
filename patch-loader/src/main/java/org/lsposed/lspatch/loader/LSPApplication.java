@@ -50,6 +50,7 @@ import java.util.function.BiConsumer;
 import java.util.zip.ZipFile;
 
 import dalvik.system.DexFile;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import hidden.HiddenApiBridge;
 
@@ -115,6 +116,10 @@ public class LSPApplication {
         Startup.bootstrapXposed();
         // WARN: Since it uses `XResource`, the following class should not be initialized
         // before forkPostCommon is invoke. Otherwise, you will get failure of XResources
+
+        if (config.outputLog){
+            XposedBridge.setLogPrinter(new XposedLogPrinter(0,"OPatch"));
+        }
         Log.i(TAG, "Load modules");
         LSPLoader.initModules(appLoadedApk);
         Log.i(TAG, "Modules initialized");
