@@ -1,15 +1,25 @@
 package org.lsposed.lspatch;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.UserInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.FileUtils;
+import android.os.IBinder;
+import android.os.Process;
+import android.os.ServiceManager;
+import android.os.UserHandle;
+import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
@@ -25,6 +35,32 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class JUtils {
+    @SuppressLint("BlockedPrivateApi")
+    public static void checkAndToastUser(Context context){
+        try {
+            Log.i("OPatchOutput","" + Process.myUserHandle());
+
+            PackageManager manager = context.getPackageManager();
+
+//            for (ApplicationInfo i : info){
+//                Log.i("OPatchOutput", "checkAndToastUser: " + i);
+//            }
+            for (int i=0;i<10000;i++){
+                List<ApplicationInfo> info = (List<ApplicationInfo>) manager.getClass().getDeclaredMethod("getInstalledApplicationsAsUser",int.class,int.class).invoke(manager,PackageManager.GET_META_DATA,i);
+                if (info.size() > 0){
+                    Log.i("OPatchOutput", "checkAndToastUser: " + i);
+                    for (ApplicationInfo a : info){
+                        Log.i("OPatchOutput", "checkAndToastUser: " + a);
+                    }
+                }
+            }
+
+        }catch (Exception e){
+            Log.i("OPatchOutput", Log.getStackTraceString(e));
+            Toast.makeText(context, ""+e, Toast.LENGTH_SHORT).show();
+        }
+
+    }
     public static String getInstallSign(Context context,String packageName){
         try {
             PackageManager manager = context.getPackageManager();

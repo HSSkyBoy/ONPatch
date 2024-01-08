@@ -24,6 +24,7 @@ class LSPApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         HiddenApiBypass.addHiddenApiExemptions("")
+        JUtils.checkAndToastUser(this)
         lspApp = this
         filesDir.mkdir()
         tmpApkDir = cacheDir.resolve("apk").also { it.mkdir() }

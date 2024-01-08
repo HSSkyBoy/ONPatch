@@ -175,7 +175,6 @@ public class LSPApplication {
             Path providerPath = null;
             if (config.injectProvider){
                 try (ZipFile sourceFile = new ZipFile(sourceFileaa)) {
-
                     providerPath = Paths.get(appInfo.dataDir, "cache/opatch/origin/p_" + sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH).getCrc()+".dex");
                     Files.deleteIfExists(providerPath);
                     try (InputStream is = baseClassLoader.getResourceAsStream(PROVIDER_DEX_ASSET_PATH)) {
