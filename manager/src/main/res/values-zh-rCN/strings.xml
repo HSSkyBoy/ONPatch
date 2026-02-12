@@ -23,7 +23,7 @@
     <string name="home_system_abi">系统架构</string>
     <string name="home_info_copied">已复制到剪贴板</string>
     <string name="home_support">支持</string>
-    <string name="home_description">OPatch 是一款免费的基于 LSPosed 核心的免 Root 注入原神 框架。</string>
+    <string name="home_description">ONPatch 是一款免费的基于 LSPosed 核心的免 Root 注入原神 框架。</string>
     <string name="home_view_source_code"><![CDATA[查看源代码 %1$s<br/>加入我们的 %2$s 频道]]></string>
     <!-- Manage Screen -->
     <string name="screen_manage">管理</string>
@@ -52,7 +52,7 @@
     <string name="patch_local">注入原神加载器模式</string>
     <string name="patch_local_desc">修补 App 并无需内置原神。\n被注入原神加载器的应用在修改作用域后保持管理器后台启动一次即可，无需重新注入。\n被注入原神加载器的应用只能在本机上运行。</string>
     <string name="patch_integrated">集成原神模式</string>
-    <string name="patch_integrated_desc">修补 App 并内置原神。\n被注入原神的应用可以在没有OPatch的情况下运行，但不能动态管理模块加载配置。</string>
+    <string name="patch_integrated_desc">修补 App 并内置原神。\n被注入原神的应用可以在没有ONPatch的情况下运行，但不能动态管理模块加载配置。</string>
     <string name="patch_embed_modules">嵌入模块</string>
     <string name="patch_debuggable">可调试</string>
     <string name="patch_inject_mt_provider">注入文件提供者</string>

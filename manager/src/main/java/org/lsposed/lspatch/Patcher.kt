@@ -26,7 +26,7 @@ object Patcher {
             var mReadPath = JUtils.processApkPath(lspApp,apkPaths)
             lspApp.targetApkPath = File(
                 lspApp.tmpApkDir.absolutePath, String.format(
-                    Locale.getDefault(), "%s-%d-opatched.apk",
+                    Locale.getDefault(), "%s-%d-onpatched.apk",
                     File(mReadPath[0]).nameWithoutExtension,
                     LSPConfig.instance.VERSION_CODE
                 )

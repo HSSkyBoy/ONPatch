@@ -66,7 +66,7 @@ public class JUtils {
             ApplicationInfo info = manager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             return info.metaData == null || !info.metaData.containsKey("lspatch");
         }catch (Exception e){
-            Log.i("OPatch",Log.getStackTraceString(e));
+            Log.i("ONPatch",Log.getStackTraceString(e));
             return false;
         }
     }

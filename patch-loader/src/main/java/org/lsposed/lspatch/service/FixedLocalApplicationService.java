@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
-    private static final String TAG = "OPatch";
+    private static final String TAG = "ONPatch";
     private final List<Module> cachedModule;
     public FixedLocalApplicationService(Context context){
-        SharedPreferences shared = context.getSharedPreferences("opatch", Context.MODE_PRIVATE);
+        SharedPreferences shared = context.getSharedPreferences("onpatch", Context.MODE_PRIVATE);
         cachedModule = new ArrayList<>();
         try {
             JSONArray mArr = new JSONArray(shared.getString("modules", "{}"));
@@ -38,13 +38,13 @@ public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
                 m.apkPath = path;
                 m.packageName = packageName;
                 if (!new File(m.apkPath).exists()){
-                    Log.i("OPatch","Module:" + m.packageName + " path not available, reset.");
+                    Log.i("ONPatch","Module:" + m.packageName + " path not available, reset.");
                     try {
                         ApplicationInfo info = context.getPackageManager().getApplicationInfo(m.packageName, 0);
                         m.apkPath = info.sourceDir;
-                        Log.i("OPatch","Module:" + m.packageName + " path reset to " + m.apkPath);
+                        Log.i("ONPatch","Module:" + m.packageName + " path reset to " + m.apkPath);
                     }catch (Exception e){
-                        Log.e("OPatch",Log.getStackTraceString(e));
+                        Log.e("ONPatch",Log.getStackTraceString(e));
                     }
                 }
                 m.file = ModuleLoader.loadModule(m.apkPath);
