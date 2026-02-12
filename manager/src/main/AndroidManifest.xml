@@ -19,7 +19,6 @@
 
         <activity
             android:name="org.lsposed.lspatch.ui.activity.YSStartActivity"
-            android:screenOrientation="landscape"
             android:exported="true">
 
             <intent-filter>
