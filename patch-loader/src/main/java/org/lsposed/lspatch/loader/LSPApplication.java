@@ -60,7 +60,7 @@ import hidden.HiddenApiBridge;
 @SuppressWarnings("unused")
 public class LSPApplication {
 
-    private static final String TAG = "OPatch";
+    private static final String TAG = "NPatch";
     private static final int FIRST_APP_ZYGOTE_ISOLATED_UID = 90000;
     private static final int PER_USER_RANGE = 100000;
 
@@ -118,7 +118,7 @@ public class LSPApplication {
         // before forkPostCommon is invoke. Otherwise, you will get failure of XResources
 
         if (config.outputLog){
-            XposedBridge.setLogPrinter(new XposedLogPrinter(0,"OPatch"));
+            XposedBridge.setLogPrinter(new XposedLogPrinter(0,"NPatch"));
         }
         Log.i(TAG, "Load modules");
         LSPLoader.initModules(appLoadedApk);

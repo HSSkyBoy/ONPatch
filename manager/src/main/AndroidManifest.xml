@@ -12,7 +12,7 @@
     <application
         android:name="org.lsposed.lspatch.LSPApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ysicon"
+        android:icon="@drawable/sticon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar">
@@ -21,11 +21,13 @@
             android:name="org.lsposed.lspatch.ui.activity.YSStartActivity"
             android:screenOrientation="landscape"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -35,18 +37,19 @@
                 <data android:mimeType="application/vnd.android.package-archive" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="org.lsposed.lspatch.ui.activity.MainActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="false"
+            />
 
         <service
             android:name="org.lsposed.lspatch.manager.ModuleService"
             android:exported="true"
             tools:ignore="ExportedService" />
+
         <provider
-            android:authorities="org.lsposed.opatch.FileProvider"
+            android:authorities="${applicationId}.FileProvider"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true"

@@ -35,30 +35,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class JUtils {
-    @SuppressLint("BlockedPrivateApi")
     public static void checkAndToastUser(Context context){
-        try {
-            Log.i("OPatchOutput","" + Process.myUserHandle());
-
-            PackageManager manager = context.getPackageManager();
-
-//            for (ApplicationInfo i : info){
-//                Log.i("OPatchOutput", "checkAndToastUser: " + i);
-//            }
-            for (int i=0;i<10000;i++){
-                List<ApplicationInfo> info = (List<ApplicationInfo>) manager.getClass().getDeclaredMethod("getInstalledApplicationsAsUser",int.class,int.class).invoke(manager,PackageManager.GET_META_DATA,i);
-                if (info.size() > 0){
-                    Log.i("OPatchOutput", "checkAndToastUser: " + i);
-                    for (ApplicationInfo a : info){
-                        Log.i("OPatchOutput", "checkAndToastUser: " + a);
-                    }
-                }
-            }
-
-        }catch (Exception e){
-            Log.i("OPatchOutput", Log.getStackTraceString(e));
-            Toast.makeText(context, ""+e, Toast.LENGTH_SHORT).show();
-        }
 
     }
     public static String getInstallSign(Context context,String packageName){
