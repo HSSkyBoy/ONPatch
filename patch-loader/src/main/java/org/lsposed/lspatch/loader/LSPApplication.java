@@ -41,12 +41,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import dalvik.system.DexFile;
@@ -56,6 +58,7 @@ import hidden.HiddenApiBridge;
 
 /**
  * Created by Windysha
+ * Optimized for performance
  */
 @SuppressWarnings("unused")
 public class LSPApplication {
@@ -100,7 +103,7 @@ public class LSPApplication {
                     moduleArr.put(moduleObj);
                 }
                 SharedPreferences shared = context.getSharedPreferences("onpatch", Context.MODE_PRIVATE);
-                shared.edit().putString("modules",moduleArr.toString()).commit();
+                shared.edit().putString("modules", moduleArr.toString()).apply();
                 Log.e(TAG, "Success update module scope");
             }catch (Exception e){
                 Log.e(TAG, "Failed to connect to manager, fallback to fixed local service");
@@ -117,8 +120,8 @@ public class LSPApplication {
         // WARN: Since it uses `XResource`, the following class should not be initialized
         // before forkPostCommon is invoke. Otherwise, you will get failure of XResources
 
-        if (config.outputLog){
-            XposedBridge.setLogPrinter(new XposedLogPrinter(0,"NPatch"));
+        if (config.outputLog) {
+            XposedBridge.setLogPrinter(new XposedLogPrinter(0, "OPatch"));
         }
         Log.i(TAG, "Load modules");
         LSPLoader.initModules(appLoadedApk);
@@ -141,8 +144,10 @@ public class LSPApplication {
             var baseClassLoader = stubLoadedApk.getClassLoader();
 
             try (var is = baseClassLoader.getResourceAsStream(CONFIG_ASSET_PATH)) {
-                BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-                config = new Gson().fromJson(streamReader, PatchConfig.class);
+                if (is == null) throw new IOException("Config not found");
+                try (BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                    config = new Gson().fromJson(streamReader, PatchConfig.class);
+                }
             } catch (IOException e) {
                 Log.e(TAG, "Failed to load config file");
                 return null;
@@ -152,49 +157,49 @@ public class LSPApplication {
 
             Path originPath = Paths.get(appInfo.dataDir, "cache/onpatch/origin/");
             Path cacheApkPath;
-            try (ZipFile sourceFile = new ZipFile(appInfo.sourceDir)) {
-                cacheApkPath = originPath.resolve(sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH).getCrc() + ".apk");
+            Path providerPath = null;
+            String originalSourceDir = appInfo.sourceDir;
+
+            try (ZipFile sourceFile = new ZipFile(originalSourceDir)) {
+                ZipEntry originalApkEntry = sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH);
+                if (originalApkEntry == null) throw new IOException("Original APK not found in assets");
+
+                cacheApkPath = originPath.resolve(originalApkEntry.getCrc() + ".apk");
+
+                if (!Files.exists(cacheApkPath)) {
+                    Log.i(TAG, "Extract original apk");
+                    FileUtils.deleteFolderIfExists(originPath);
+                    Files.createDirectories(originPath);
+                    try (InputStream is = baseClassLoader.getResourceAsStream(ORIGINAL_APK_ASSET_PATH)) {
+                        Files.copy(is, cacheApkPath);
+                    }
+
+                    cacheApkPath.toFile().setWritable(false);
+                }
+                if (config.injectProvider) {
+                    try {
+                        providerPath = Paths.get(appInfo.dataDir, "cache/onpatch/origin/p_" + originalApkEntry.getCrc() + ".dex");
+                        if (!Files.exists(providerPath)) {
+                            try (InputStream is = baseClassLoader.getResourceAsStream(PROVIDER_DEX_ASSET_PATH)) {
+                                Files.copy(is, providerPath);
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Failed to inject provider:" + Log.getStackTraceString(e));
+                    }
+                }
+
             }
-            String sourceFileaa = appInfo.sourceDir;
 
             appInfo.sourceDir = cacheApkPath.toString();
             appInfo.publicSourceDir = cacheApkPath.toString();
             appInfo.appComponentFactory = config.appComponentFactory;
 
-
-
-
-            if (!Files.exists(cacheApkPath)) {
-                Log.i(TAG, "Extract original apk");
-                FileUtils.deleteFolderIfExists(originPath);
-                Files.createDirectories(originPath);
-                try (InputStream is = baseClassLoader.getResourceAsStream(ORIGINAL_APK_ASSET_PATH)) {
-                    Files.copy(is, cacheApkPath);
-                }
-            }
-            Path providerPath = null;
-            if (config.injectProvider){
-                try (ZipFile sourceFile = new ZipFile(sourceFileaa)) {
-                    providerPath = Paths.get(appInfo.dataDir, "cache/onpatch/origin/p_" + sourceFile.getEntry(ORIGINAL_APK_ASSET_PATH).getCrc()+".dex");
-                    Files.deleteIfExists(providerPath);
-                    try (InputStream is = baseClassLoader.getResourceAsStream(PROVIDER_DEX_ASSET_PATH)) {
-                        Files.copy(is, providerPath);
-                    }
-                }catch (Exception e){
-                    Log.e(TAG, "Failed to inject provider:" + Log.getStackTraceString(e));
-                }
-
-            }
-
-            cacheApkPath.toFile().setWritable(false);
-
             var mPackages = (Map<?, ?>) XposedHelpers.getObjectField(activityThread, "mPackages");
             mPackages.remove(appInfo.packageName);
             appLoadedApk = activityThread.getPackageInfoNoCheck(appInfo, compatInfo);
 
-
-
-            if (config.injectProvider){
+            if (config.injectProvider && providerPath != null) {
                 ClassLoader loader = appLoadedApk.getClassLoader();
                 Object dexPathList = XposedHelpers.getObjectField(loader, "pathList");
                 Object dexElements = XposedHelpers.getObjectField(dexPathList, "dexElements");
@@ -203,9 +208,9 @@ public class LSPApplication {
                 System.arraycopy(dexElements, 0, newElements, 0, length);
 
                 DexFile dexFile = new DexFile(providerPath.toString());
-                Object element = XposedHelpers.newInstance(XposedHelpers.findClass("dalvik.system.DexPathList$Element",loader), new Class[]{
+                Object element = XposedHelpers.newInstance(XposedHelpers.findClass("dalvik.system.DexPathList$Element", loader), new Class[]{
                         DexFile.class
-                },dexFile);
+                }, dexFile);
                 Array.set(newElements, length, element);
                 XposedHelpers.setObjectField(dexPathList, "dexElements", newElements);
             }
@@ -220,7 +225,7 @@ public class LSPApplication {
                 if (activityClientRecordClass.isInstance(v)) {
                     var pkgInfo = XposedHelpers.getObjectField(v, "packageInfo");
                     if (pkgInfo == stubLoadedApk) {
-                        Log.d(TAG, "fix loadedapk from ActivityClientRecord");
+                        // Log.d(TAG, "fix loadedapk from ActivityClientRecord");
                         XposedHelpers.setObjectField(v, "packageInfo", appLoadedApk);
                     }
                 }
@@ -280,12 +285,13 @@ public class LSPApplication {
         for (int i = codePaths.size() - 1; i >= 0; i--) {
             String splitName = i == 0 ? null : appInfo.splitNames[i - 1];
             File curProfileFile = new File(profileDir, splitName == null ? "primary.prof" : splitName + ".split.prof").getAbsoluteFile();
+
+             if (curProfileFile.exists() && curProfileFile.length() == 0 && !curProfileFile.canWrite()) {
+                continue;
+            }
+
             Log.d(TAG, "Processing " + curProfileFile.getAbsolutePath());
             try {
-                if (!curProfileFile.canWrite() && Files.size(curProfileFile.toPath()) == 0) {
-                    Log.d(TAG, "Skip profile " + curProfileFile.getAbsolutePath());
-                    continue;
-                }
                 if (curProfileFile.exists() && !curProfileFile.delete()) {
                     try (var writer = new FileOutputStream(curProfileFile)) {
                         Log.d(TAG, "Failed to delete, try to clear content " + curProfileFile.getAbsolutePath());
