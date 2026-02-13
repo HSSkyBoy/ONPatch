@@ -3,8 +3,8 @@ package org.lsposed.lspatch.share;
 public class Constants {
 
     final static public String CONFIG_ASSET_PATH = "assets/lspatch/config.json";
-    final static public String LOADER_DEX_ASSET_PATH = "assets/lspatch/loader.so";
-    final static public String META_LOADER_DEX_ASSET_PATH = "assets/lspatch/metaloader.so";
+    final static public String LOADER_DEX_ASSET_PATH = "assets/lspatch/loader.dex";
+    final static public String META_LOADER_DEX_ASSET_PATH = "assets/lspatch/metaloader.dex";
     final static public String PROVIDER_DEX_ASSET_PATH = "assets/lspatch/provider.dex";
     final static public String ORIGINAL_APK_ASSET_PATH = "assets/lspatch/origin.apk";
     final static public String EMBEDDED_MODULES_ASSET_PATH = "assets/lspatch/modules/";

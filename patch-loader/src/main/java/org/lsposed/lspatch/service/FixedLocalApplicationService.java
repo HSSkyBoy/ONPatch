@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
-    private static final String TAG = "ONPatch";
+    private static final String TAG = "OPatch";
     private final List<Module> cachedModule;
     public FixedLocalApplicationService(Context context){
         SharedPreferences shared = context.getSharedPreferences("onpatch", Context.MODE_PRIVATE);
@@ -38,13 +38,13 @@ public class FixedLocalApplicationService extends ILSPApplicationService.Stub {
                 m.apkPath = path;
                 m.packageName = packageName;
                 if (!new File(m.apkPath).exists()){
-                    Log.i("ONPatch","Module:" + m.packageName + " path not available, reset.");
+                    Log.i("OPatch","Module:" + m.packageName + " path not available, reset.");
                     try {
                         ApplicationInfo info = context.getPackageManager().getApplicationInfo(m.packageName, 0);
                         m.apkPath = info.sourceDir;
-                        Log.i("ONPatch","Module:" + m.packageName + " path reset to " + m.apkPath);
+                        Log.i("OPatch","Module:" + m.packageName + " path reset to " + m.apkPath);
                     }catch (Exception e){
-                        Log.e("ONPatch",Log.getStackTraceString(e));
+                        Log.e("OPatch",Log.getStackTraceString(e));
                     }
                 }
                 m.file = ModuleLoader.loadModule(m.apkPath);

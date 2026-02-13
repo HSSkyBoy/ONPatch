@@ -1,25 +1,15 @@
 package org.lsposed.lspatch;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.UserInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.FileUtils;
-import android.os.IBinder;
-import android.os.Process;
-import android.os.ServiceManager;
-import android.os.UserHandle;
-import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
@@ -66,12 +56,13 @@ public class JUtils {
             ApplicationInfo info = manager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             return info.metaData == null || !info.metaData.containsKey("lspatch");
         }catch (Exception e){
-            Log.i("ONPatch",Log.getStackTraceString(e));
+            Log.i("OPatch",Log.getStackTraceString(e));
             return false;
         }
     }
 
     public static void installApkByPackageManager(Context context,File apkPath){
+        GlobalUserHandler.mHandler.size();
         try {
             Log.i("OPatchOutput", "RequestInstall: " + apkPath);
             String e = context.getExternalCacheDir() + "/install.apk";

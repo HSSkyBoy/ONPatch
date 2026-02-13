@@ -9,7 +9,7 @@ import android.util.Log
 class ModuleService : Service() {
 
     companion object {
-        private const val TAG = "NPatchModuleService"
+        private const val TAG = "OPatchModuleService"
     }
 
     override fun onBind(intent: Intent): IBinder? {
